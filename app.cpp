@@ -2,8 +2,8 @@
 // https://de.statista.com/themen/123/deutsche-bahn/#topicHeader__wrapper
 // https://de.statista.com/statistik/daten/studie/254053/umfrage/zugunfaelle-innerhalb-der-eu-nach-unfallkategorie/
 
-
-
+#include <fstream>
+#include "nlohmann/json.hpp"
 #include <iostream>
 #include <chrono>
 #include <thread>
@@ -13,7 +13,7 @@
 #include <unistd.h>
 #define Sleep(x) usleep((x)*1000)
 #endif
-
+using json = nlohmann::json;
 using namespace std;
 
 string train1, train2, train3;
@@ -21,6 +21,8 @@ string train1, train2, train3;
 // intagers for example train 1
 int train1_left, train1_aproximet, train1_length, train1_current, train1_time, train1_speed, train1_saved_speed;
 
+
+string answer, file;
 
 //statistic integerts
 int cycle, lost_money, error_count;
@@ -73,6 +75,19 @@ void log() {
 }
 
 
+// Used to create / recreate the database
+void rebuild_database(){
+
+	json jsonfile;
+
+	jsonfile["train"] = "train";
+
+	std::ofstream file("data.json");
+	file << std::setw(4) << jsonfile << endl;
+}
+
+
+
 // Creates Problems
 void create_problem() {
 
@@ -96,6 +111,13 @@ int main() {
 	delay_pessanger = 50;
 	train1_saved_speed = train1_speed;
 	
+	cout << "Would you like to rebuild the database and rebuild the database? y/n" << endl; 
+	cin >> answer;
+	
+	if (answer == "y"){
+		cout << "Rebuilding database ..." << endl;
+		rebuild_database();
+	}
 	for(;;)
 	{	// Resets existing problems
 		train1_speed = train1_saved_speed;
