@@ -18,10 +18,20 @@ using namespace std;
 
 string train1, train2, train3;
 
-// intagers for example train 1
-int train1_left, train1_aproximet, train1_length, train1_current, train1_time, train1_speed, train1_saved_speed;
+// intagers and bools for example train 1
+int train1_left, train1_railroad, train1_aproximet, train1_ticket_price, train1_passengers, train1_length, train1_current, train1_time, train1_speed, train1_saved_speed;
+bool train1_direction;
 
 
+// intagers and bools for example train 2
+int train2_left, train2_railroad, train2_aproximet, train2_ticket_price, train2_passengers, train2_length, train2_current, train2_time, train2_speed, train2_saved_speed;
+bool train2_direction;
+
+// int and bools for railroad system
+int railroad1_length, railroad2_length;
+bool point;
+
+// json file strings
 string answer, file;
 
 //statistic integerts
@@ -38,10 +48,13 @@ void finished() {
 	if (train1_time != train1_aproximet){
 		cout << "One Train arrived too late" << endl;
 		error_count++;
+	}else{		cout << "Train arrived in time" << endl;
+       	}
+	if (train1_direction == true) {
+		train1_direction = false;
 	}else{
-		cout << "Train arrived in time" << endl;
+		train1_direction = true;
 	}
-	train1_current = 0;
 	train1_time = 0;
 }
 
@@ -49,6 +62,8 @@ void finished() {
 // Calculates best option when a train wont arrive in time.
 void best_option() {
 	//cout << "calculating best option" << endl;
+
+
 
 	if ((train1_left + train1_current) - train1_aproximet >= 60 &&  (train1_left + train1_current) - train1_aproximet < 120){
 		cout << "One train is at least 60 minutes late!" << endl;
@@ -61,6 +76,22 @@ void best_option() {
 
 
 }
+
+
+// Initialise example railroad system
+void railroad_init() {
+	railroad1_length = 5000;
+	railroad2_length = 3000;
+	int railroad1_crossing_2 = 2300;
+	int railroad2_crossing_1 = 300;
+
+	train1_railroad = 1;
+	train2_railroad = 2;
+
+}
+
+
+
 
 
 // Logs all important values to console.
@@ -104,13 +135,13 @@ void create_problem() {
 int main() {
 
 	// Sets values for example train1
-	train1_length = 50;
+	train1_length = railroad1_length;
 	train1_speed = 25;
+	train1_passengers = 120;
 	train1_aproximet = (train1_length / train1_speed);	 
 	cout << "In this simultaion one second is equal to one minute!" << endl; 
 	delay_pessanger = 50;
 	train1_saved_speed = train1_speed;
-	
 	cout << "Would you like to rebuild the database and rebuild the database? y/n" << endl; 
 	cin >> answer;
 	
@@ -118,6 +149,7 @@ int main() {
 		cout << "Rebuilding database ..." << endl;
 		rebuild_database();
 	}
+
 	for(;;)
 	{	// Resets existing problems
 		train1_speed = train1_saved_speed;
@@ -129,9 +161,15 @@ int main() {
 		// Used for logging
 		cycle++;
 		
+		// Moves the train
 		train1_time++;
-		train1_current = train1_current + train1_speed;	
-		train1_left = (train1_length - train1_current) / (train1_speed );
+		if (train1_direction == true){
+			train1_current = train1_current + train1_speed;
+			train1_left = (train1_length - train1_current) / (train1_speed );
+		}else{
+			train1_current = train1_current - train1_speed;
+			train1_left = (-train1_length - train1_current) / (train1_speed );
+		}	
 	
 		// Checks if train will arrive in time
 		if (train1_left > (train1_aproximet - train1_current / (train1_speed))){
