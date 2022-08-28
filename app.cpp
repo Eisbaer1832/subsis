@@ -1,7 +1,3 @@
-// Some helpful wesbsites
-// https://de.statista.com/themen/123/deutsche-bahn/#topicHeader__wrapper
-// https://de.statista.com/statistik/daten/studie/254053/umfrage/zugunfaelle-innerhalb-der-eu-nach-unfallkategorie/
-
 #include <fstream>
 #include "nlohmann/json.hpp"
 #include <iostream>
@@ -16,10 +12,16 @@
 using json = nlohmann::json;
 using namespace std;
 
+//inclue imgui files
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_dx11.h"
+
 string train1, train2, train3;
 
 // intagers and bools for example train 1
-int train1_left, train1_railroad, train1_aproximet, train1_ticket_price, train1_passengers, train1_length, train1_current, train1_time, train1_speed, train1_saved_speed;
+int train1_left, train1_problem_time, train1_problem_cycle, train1_railroad, train1_aproximet, train1_ticket_price, train1_passengers, train1_length, train1_current, train1_time, train1_speed, train1_saved_speed;
 bool train1_direction;
 
 
@@ -42,15 +44,21 @@ int cycle, lost_money, error_count;
 int possible_loss, delay_pessanger;
 
 
+	
+
+
 // function if train is too late 
 void finished() {
 
 	if (train1_time != train1_aproximet){
 		cout << "One Train arrived too late" << endl;
 		error_count++;
-	}else{		cout << "Train arrived in time" << endl;
-       	}
-	if (train1_direction == true) {
+	}else{
+		cout << "Train arrived in time" << endl;
+	}
+	
+	if (train1_direction == true) 
+	{
 		train1_direction = false;
 	}else{
 		train1_direction = true;
@@ -63,8 +71,6 @@ void finished() {
 void best_option() {
 	//cout << "calculating best option" << endl;
 
-
-
 	if ((train1_left + train1_current) - train1_aproximet >= 60 &&  (train1_left + train1_current) - train1_aproximet < 120){
 		cout << "One train is at least 60 minutes late!" << endl;
 		// 25% loss of income per ticket
@@ -73,10 +79,7 @@ void best_option() {
 		cout << "One train is at least 120 minutes late!" << endl;
 		// 50% loss of income per ticket
 	}
-
-
 }
-
 
 // Initialise example railroad system
 void railroad_init() {
@@ -89,9 +92,6 @@ void railroad_init() {
 	train2_railroad = 2;
 
 }
-
-
-
 
 
 // Logs all important values to console.
@@ -121,29 +121,58 @@ void rebuild_database(){
 
 // Creates Problems
 void create_problem() {
-
-	if (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 1.5){
-		cout << "A problem accured.";		
+	if (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 1.5 && train1_problem_cycle == 0){
+		cout << "A problem occured." << endl;	
 		train1_speed = 10;
+		train1_problem_time = (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 5);
 	}
-
-
 }
 
 
 //main function
 int main() {
+	//inits window
+
+	// Create a Dear ImGui context, setup some options
+	ImGui::ShowDemoWindow();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable some options
+
+
+	// Application main loop
+	while (true)
+	{
+		// Beginning of frame: update Renderer + Platform backend, start Dear ImGui frame
+		ImGui_ImplDX11_NewFrame();
+		ImGui::NewFrame();
+
+		// Any application code here
+		ImGui::Text("Hello, world!");
+
+		// End of frame: render Dear ImGui
+		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+
+	}
+
+	// Shutdown
+	ImGui_ImplDX11_Shutdown();
+	ImGui::DestroyContext();
+
 
 	// Sets values for example train1
-	train1_length = railroad1_length;
+	train1_length = 500;
 	train1_speed = 25;
+	train1_direction = true;
+	train1_problem_cycle = 0;
 	train1_passengers = 120;
 	train1_aproximet = (train1_length / train1_speed);	 
 	cout << "In this simultaion one second is equal to one minute!" << endl; 
-	delay_pessanger = 50;
 	train1_saved_speed = train1_speed;
-	cout << "Would you like to rebuild the database and rebuild the database? y/n" << endl; 
-	cin >> answer;
+	//cout << "Would you like to rebuild the database and rebuild the database? y/n" << endl; 
+	//cin >> answer;
 	
 	if (answer == "y"){
 		cout << "Rebuilding database ..." << endl;
@@ -152,8 +181,13 @@ int main() {
 
 	for(;;)
 	{	// Resets existing problems
-		train1_speed = train1_saved_speed;
+		train1_problem_cycle++;
 
+		if (train1_problem_time == train1_problem_cycle) {
+			train1_speed = train1_saved_speed;
+			train1_problem_cycle = 0;
+
+		}
 
 		// Triggers creation of roblems
 		create_problem();	
@@ -164,25 +198,41 @@ int main() {
 		// Moves the train
 		train1_time++;
 		if (train1_direction == true){
-			train1_current = train1_current + train1_speed;
-			train1_left = (train1_length - train1_current) / (train1_speed );
+			train1_current = train1_current + train1_speed;	
+			train1_left = (train1_length - train1_current) / (train1_speed);
+			
+			// Checks if train will arrive in time
+			if (train1_left > (train1_aproximet - train1_current / (train1_speed))){
+
+				// A train probaply wont arrive in time!
+				cout << "A train wont arrive in time." << endl;
+				best_option();
+			}
+
+			// Checks if Train arrived its destination
+			if (train1_current >= train1_length){
+			finished();	
+			}	
 		}else{
-			train1_current = train1_current - train1_speed;
-			train1_left = (-train1_length - train1_current) / (train1_speed );
-		}	
-	
-		// Checks if train will arrive in time
-		if (train1_left > (train1_aproximet - train1_current / (train1_speed))){
-			// A train probaply wont arrive in time!
-			cout << "A train wont arrive in time." << endl;
-			best_option();
+			train1_current = train1_current - train1_speed;	
+			train1_left = (train1_length - (train1_length - train1_current)) / (train1_speed);
+			
+			// Checks if train will arrive in time
+			if (train1_left > (train1_aproximet - (train1_length - train1_current) / (train1_speed))){
+				// A train probaply wont arrive in time!
+				cout << "A train wont arrive in time." << endl;
+				best_option();
+			}
+			
+			// Checks if Train arrived its destination
+			if ((train1_length - train1_current) >= train1_length){
+			finished();	
+			}	
 		}
 
-		// Checks if Train arrived its destination
-		if (train1_current >= train1_length){
-			finished();
-		}	
-	
+
+
+
 	log();
 	
 	cout << "###################################" << endl;
@@ -191,6 +241,3 @@ int main() {
 	
 	}
 }
-
-
-// Sets values for example train1
