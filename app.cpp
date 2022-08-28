@@ -16,7 +16,6 @@ using namespace std;
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include "imgui_impl_dx11.h"
 
 string train1, train2, train3;
 
@@ -144,7 +143,6 @@ int main() {
 	while (true)
 	{
 		// Beginning of frame: update Renderer + Platform backend, start Dear ImGui frame
-		ImGui_ImplDX11_NewFrame();
 		ImGui::NewFrame();
 
 		// Any application code here
@@ -152,13 +150,11 @@ int main() {
 
 		// End of frame: render Dear ImGui
 		ImGui::Render();
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 
 	}
 
 	// Shutdown
-	ImGui_ImplDX11_Shutdown();
 	ImGui::DestroyContext();
 
 
