@@ -2,7 +2,7 @@
 
 
 
-#H1 Variables
+## Variables
 
 - train1_current    = how far did the train already treaveld
 - train1_length     = how far does the train have to drive
