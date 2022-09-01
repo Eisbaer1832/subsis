@@ -34,16 +34,21 @@ bool train2_direction;
 // int and bools for railroad system
 int railroad1_length, railroad2_length;
 bool point;
+bool signal;
+
+// int time and space
+int clock
+int min
 
 // json file strings
 string answer, file;
 
-//statistic integerts
+//statistic integers
 int cycle, lost_money, error_count;
 
 
 //integers for (possible) losses
-int possible_loss, delay_pessanger;
+int possible_loss, delay_passenger;
 
 
 
@@ -130,45 +135,15 @@ void create_problem() {
 
 //main function
 int main() {
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+OpenGL3 example", NULL, NULL);
-    if (window == NULL)
-        return 1;
 
-    glfwMakeContextCurrent(window);
+	float buf;
+	int f;
 
-	const char* glsl_version = "#version 130";
-	ImGui::CreateContext() ;
-	ImGui_ImplGlfw_InitForOpenGL(window, true);
-	ImGui_ImplOpenGL3_Init(glsl_version);
-	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-
-	// Application main loop
-	while (true)
-	{
-		// Beginning of frame: update Rnderer + Platform backend, start Dear ImGui frame
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		// Any application code here
-		ImGui::Text("Hello, world!");
-
-		// End of frame: render Dear ImGui
-		ImGui::Render();        
-		int display_w, display_h;
-        glfwGetFramebufferSize(window, &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
-        glClear(GL_COLOR_BUFFER_BIT);
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-		// Swap
-	}
-
-	// Shutdown
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui::DestroyContext();
+	ImGui::Text("Hello, world %d", 123);
+	if (ImGui::Button("Save"))
+		MySaveFunction();
+	ImGui::InputText("string", buf, IM_ARRAYSIZE(buf));
+	ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
 
 	// Sets values for example train1
 	train1_length = 500;
@@ -176,8 +151,8 @@ int main() {
 	train1_direction = true;
 	train1_problem_cycle = 0;
 	train1_passengers = 120;
-	train1_aproximet = (train1_length / train1_speed);	 
-	cout << "In this simultaion one second is equal to one minute!" << endl; 
+	train1_aproximet = (train1_length / train1_speed);	  
+	cout << "In this simultaion one second is equal to one minute!" << endl;
 	train1_saved_speed = train1_speed;
 	//cout << "Would you like to rebuild the database and rebuild the database? y/n" << endl; 
 	//cin >> answer;
@@ -195,7 +170,7 @@ int main() {
 			train1_speed = train1_saved_speed;
 			train1_problem_cycle = 0;
 
-		}
+		} 
 
 		// Triggers creation of roblems
 		create_problem();	
