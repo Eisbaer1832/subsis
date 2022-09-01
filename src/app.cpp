@@ -40,6 +40,8 @@ bool signal;
 int clock
 int min
 
+
+
 // json file strings
 string answer, file;
 
