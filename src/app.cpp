@@ -2,7 +2,6 @@
 #include "../nlohmann/json.hpp"
 #include <iostream>
 #include <chrono>
-#include <thread>
 #include <math.h>
 #ifdef _WINDOWS
 #include <windows.h>
@@ -132,9 +131,6 @@ void rebuild_database(){
 	std::ofstream file("data.json");
 	file << std::setw(4) << jsonfile << endl;
 }
-
-
-
 // Creates Problems
 void create_problem() {
 	if (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 1.5 && train1_problem_cycle == 0){
@@ -143,6 +139,73 @@ void create_problem() {
 		train1_problem_time = (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 5);
 	}
 }
+
+void train_stuff(void*)
+{
+		
+		while(train1_aproximet == train1_aproximet)
+		{	
+			// Resets existing problems
+			train1_problem_cycle++;
+
+			if (train1_problem_time == train1_problem_cycle) {
+				train1_speed = train1_saved_speed;
+				train1_problem_cycle = 0;
+
+			} 
+
+			// Triggers creation of roblems
+			create_problem();	
+		
+			// Used for logging
+			cycle++;
+			
+			// Moves the train
+			train1_time++;
+			if (train1_direction == true){
+				train1_current = train1_current + train1_speed;	
+				train1_left = (train1_length - train1_current) / (train1_speed);
+				
+				// Checks if train will arrive in time
+				if (train1_left > (train1_aproximet - train1_current / (train1_speed))){
+
+					// A train probaply wont arrive in time!
+					cout << "A train wont arrive in time." << endl;
+					best_option();
+				}
+
+				// Checks if Train arrived its destination
+				if (train1_current >= train1_length){
+				finished();	
+				}	
+			}else{
+				train1_current = train1_current - train1_speed;	
+				train1_left = (train1_length - (train1_length - train1_current)) / (train1_speed);
+				
+				// Checks if train will arrive in time
+				if (train1_left > (train1_aproximet - (train1_length - train1_current) / (train1_speed))){
+					// A train probaply wont arrive in time!
+					cout << "A train wont arrive in time." << endl;
+					best_option();
+				}
+				
+				// Checks if Train arrived its destination
+				if ((train1_length - train1_current) >= train1_length){
+				finished();	
+				}	
+		}
+
+		log();
+		
+		cout << "###################################" << endl;
+		
+		Sleep(1000);
+
+		}
+
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////////
 //																					//
 //																					//
@@ -151,9 +214,26 @@ void create_problem() {
 //																					//
 //////////////////////////////////////////////////////////////////////////////////////
 
-
 //main function
 int main(int, char**) {
+	
+	// Sets values for example train1
+	train1_length = 500;
+	train1_speed = 25;
+	train1_direction = true;
+	train1_problem_cycle = 0;
+	train1_passengers = 120;
+	train1_aproximet = (train1_length / train1_speed);	  
+	cout << "In this simultaion one second is equal to one minute!" << endl;
+	train1_saved_speed = train1_speed;
+	//cout << "Would you like to rebuild the database and rebuild the database? y/n" << endl; 
+	//cin >> answer;
+	
+	if (answer == "y"){
+		cout << "Rebuilding database ..." << endl;
+		rebuild_database();
+	}
+	
 //////////////////////////////////////////////////////////////////////////////////////
 //																					//
 //																					//
@@ -163,31 +243,31 @@ int main(int, char**) {
 //////////////////////////////////////////////////////////////////////////////////////
 
 
-
-    // Decide GL+GLSL versions
-#if defined(IMGUI_IMPL_OPENGL_ES2)
-    // GL ES 2.0 + GLSL 100
-    const char* glsl_version = "#version 100";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-#elif defined(__APPLE__)
-    // GL 3.2 + GLSL 150
-    const char* glsl_version = "#version 150";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#else
-    // GL 3.0 + GLSL 130
-    const char* glsl_version = "#version 130";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-#endif
-
 	// Setup window
     if (!glfwInit())
         return 1;
+
+	// Decide GL+GLSL versions
+#if defined(IMGUI_IMPL_OPENGL_ES2)
+	// GL ES 2.0 + GLSL 100
+	const char* glsl_version = "#version 100";
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+#elif defined(__APPLE__)
+	// GL 3.2 + GLSL 150
+	const char* glsl_version = "#version 150";
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#else
+	// GL 3.0 + GLSL 130
+	const char* glsl_version = "#version 130";
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+#endif
+
 
 	GLFWwindow* window = glfwCreateWindow(1920, 1080, "Stoerungs und Beeintraechtigungs Simulation im Schienenverkehr", NULL, NULL);
     if (window == NULL)
@@ -216,8 +296,6 @@ int main(int, char**) {
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-
-
 	// Main loop
     while (!glfwWindowShouldClose(window))
     {
@@ -227,7 +305,8 @@ int main(int, char**) {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
+		//ImGuiIO& io = ImGui::GetIO();
+		//io.Fonts->AddFontFromFileTTF("font.ttf", 64);
         {
             static float f = 0.0f;
             static int counter = 0;
@@ -260,6 +339,7 @@ int main(int, char**) {
             ImGui::Text("train1_length = %d", train1_length);               // Display some text (you can use a format strings too
             ImGui::Text("cycle = %d", cycle);               // Display some text (you can use a format strings too
 
+
             ImGui::End();
         }
 
@@ -284,95 +364,11 @@ int main(int, char**) {
         }
 
         glfwSwapBuffers(window);
+	
     }
 
 
-//////////////////////////////////////////////////////////////////////////////////////
-//																					//
-//																					//
-//							more train stuff										//	
-//																					//
-//																					//
-//////////////////////////////////////////////////////////////////////////////////////
 
-	// Sets values for example train1
-	train1_length = 500;
-	train1_speed = 25;
-	train1_direction = true;
-	train1_problem_cycle = 0;
-	train1_passengers = 120;
-	train1_aproximet = (train1_length / train1_speed);	  
-	cout << "In this simultaion one second is equal to one minute!" << endl;
-	train1_saved_speed = train1_speed;
-	//cout << "Would you like to rebuild the database and rebuild the database? y/n" << endl; 
-	//cin >> answer;
-	
-	if (answer == "y"){
-		cout << "Rebuilding database ..." << endl;
-		rebuild_database();
-	}
-
-	for(;;)
-	{	// Resets existing problems
-		train1_problem_cycle++;
-
-		if (train1_problem_time == train1_problem_cycle) {
-			train1_speed = train1_saved_speed;
-			train1_problem_cycle = 0;
-
-		} 
-
-		// Triggers creation of roblems
-		create_problem();	
-	
-		// Used for logging
-		cycle++;
-		
-		// Moves the train
-		train1_time++;
-		if (train1_direction == true){
-			train1_current = train1_current + train1_speed;	
-			train1_left = (train1_length - train1_current) / (train1_speed);
-			
-			// Checks if train will arrive in time
-			if (train1_left > (train1_aproximet - train1_current / (train1_speed))){
-
-				// A train probaply wont arrive in time!
-				cout << "A train wont arrive in time." << endl;
-				best_option();
-			}
-
-			// Checks if Train arrived its destination
-			if (train1_current >= train1_length){
-			finished();	
-			}	
-		}else{
-			train1_current = train1_current - train1_speed;	
-			train1_left = (train1_length - (train1_length - train1_current)) / (train1_speed);
-			
-			// Checks if train will arrive in time
-			if (train1_left > (train1_aproximet - (train1_length - train1_current) / (train1_speed))){
-				// A train probaply wont arrive in time!
-				cout << "A train wont arrive in time." << endl;
-				best_option();
-			}
-			
-			// Checks if Train arrived its destination
-			if ((train1_length - train1_current) >= train1_length){
-			finished();	
-			}	
-		}
-
-
-
-
-	log();
-	
-	cout << "###################################" << endl;
-	
-	Sleep(1000);
-
-	}
 	ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
