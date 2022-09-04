@@ -131,32 +131,22 @@ void rebuild_database(){
 
 // Creates Problems
 void create_problem() {
-	if (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 1.5 && train1_problem_cycle == 0){
+	if (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 1.5){
 		cout << "A problem occured." << endl;	
 		train1_speed = 10;
-		train1_problem_time = (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 5);
+		train1_problem_time = (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 1.5);
 	}
 }
-//////////////////////////////////////////////////////////////////////////////////////
-//																					//
-//																					//
-//									main function									//
-//																					//
-//																					//
-//////////////////////////////////////////////////////////////////////////////////////
+
 
 
 //main function
 int main(int, char**) {
 
 
-//////////////////////////////////////////////////////////////////////////////////////
-//																					//
-//																					//
-//							more train stuff										//	
-//																					//
-//																					//
-//////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+//							 //			   //							    //			        			more train stuff               //										  //						                                     //
+///////////////////////////////////////////////////////////
 
 	// Sets values for example train1
 	train1_length = 500;
@@ -179,15 +169,14 @@ int main(int, char**) {
 	{	// Resets existing problems
 		train1_problem_cycle++;
 
-		if (train1_problem_time == train1_problem_cycle) {
+		if (train1_problem_cycle >= train1_problem_time) {
 			train1_speed = train1_saved_speed;
 			train1_problem_cycle = 0;
 
 		} 
 
 		// Triggers creation of roblems
-		create_problem();	
-	
+		create_problem();
 		// Used for logging
 		cycle++;
 		
