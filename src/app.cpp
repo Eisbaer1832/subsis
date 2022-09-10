@@ -26,7 +26,6 @@ string train1, train2, train3;
 int train1_left, train1_problem_time, train1_problem_cycle, train1_railroad, train1_aproximet, train1_ticket_price, train1_passengers, train1_length, train1_current, train1_time, train1_speed, train1_saved_speed;
 bool train1_direction;
 
-
 // intagers and bools for example train 2
 int train2_left, train2_railroad, train2_aproximet, train2_ticket_price, train2_passengers, train2_length, train2_current, train2_time, train2_speed, train2_saved_speed;
 bool train2_direction;
@@ -39,8 +38,7 @@ bool signal;
 // int time and space
 int watch;
 int min;
-
-
+int type_cycle;
 // json file strings
 string answer, file;
 
@@ -206,7 +204,6 @@ void train_stuff()
 
 }
 
-
 //////////////////////////////////////////////////////////////////////////////////////
 //																					//
 //																					//
@@ -235,8 +232,9 @@ int main(int, char**) {
 		rebuild_database();
 	}
 	std::thread x(train_stuff);
-
 	x.detach();
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////
 //																					//
@@ -245,7 +243,6 @@ int main(int, char**) {
 //																					//
 //																					//
 //////////////////////////////////////////////////////////////////////////////////////
-
 
 	// Setup window
     if (!glfwInit())
@@ -348,20 +345,34 @@ int main(int, char**) {
 //////////////////////////////////////////////////////////////////////////////////////
 //																					//
 //																					//
-//					Map window														//
+//								Map window											//
 //																					//
 //																					//
 //////////////////////////////////////////////////////////////////////////////////////
 
 		{
 			ImGui::Begin("Map");
-
+			string cycle_read;
 			if (ImGui::BeginTable("table2", 3))
 			{
+				string type[17];
+				while (type_cycle < 16)
+				{
+					// Reads 16 Ints form json file
+					type_cycle++;
+					std::string cycle_read = std::to_string(type_cycle);
+					std::ifstream file("./json/mapdata.json");
+					json map = json::parse(file);
+					string field_temp_type = map[cycle_read]["type"];
+					type[type_cycle] = field_temp_type;
+					//prints all
+					//cout << type[type_cycle] << endl;
+					// Idea: save values in arrey
+				}
 
-				ImGui::TableNextRow();
 				ImGui::TableNextColumn();
-				ImGui::Text("Wow");
+				ImGui::TableNextRow();
+				ImGui::Text("one");
 				ImGui::TableNextColumn();
 				ImGui::Text("Some contents");
 				ImGui::TableNextColumn();
