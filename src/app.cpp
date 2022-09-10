@@ -11,6 +11,7 @@
 #endif
 using json = nlohmann::json;
 using namespace std;
+#include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>
@@ -18,7 +19,7 @@ using namespace std;
 #include <GLES2/gl2.h>
 #endif
 #include <GLFW/glfw3.h>
-
+#include <thread>
 string train1, train2, train3;
 
 // intagers and bools for example train 1
@@ -140,7 +141,7 @@ void create_problem() {
 	}
 }
 
-void train_stuff(void*)
+void train_stuff()
 {
 		
 		while(train1_aproximet == train1_aproximet)
@@ -233,7 +234,10 @@ int main(int, char**) {
 		cout << "Rebuilding database ..." << endl;
 		rebuild_database();
 	}
-	
+	std::thread x(train_stuff);
+
+	x.detach();
+
 //////////////////////////////////////////////////////////////////////////////////////
 //																					//
 //																					//
@@ -272,18 +276,19 @@ int main(int, char**) {
 	GLFWwindow* window = glfwCreateWindow(1920, 1080, "Stoerungs und Beeintraechtigungs Simulation im Schienenverkehr", NULL, NULL);
     if (window == NULL)
         return 1;
-	 glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; 
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           
     ImGui::StyleColorsLight();
  	
 	ImGuiStyle& style = ImGui::GetStyle();
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	ImGuiIO& io = ImGui::GetIO();
+	io.Fonts->AddFontFromFileTTF("font.ttf", 16);
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; 
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
         style.WindowRounding = 0.0f;
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
@@ -292,8 +297,6 @@ int main(int, char**) {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    bool show_demo_window = true;
-    bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	// Main loop
@@ -305,8 +308,7 @@ int main(int, char**) {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-		//ImGuiIO& io = ImGui::GetIO();
-		//io.Fonts->AddFontFromFileTTF("font.ttf", 64);
+
         {
             static float f = 0.0f;
             static int counter = 0;
@@ -314,9 +316,8 @@ int main(int, char**) {
             ImGui::Begin("Overwiev!");                          // Create a window called "Hello, world!" and append into it.
 
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
 
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::SliderFloat("float", &f, 0.0f, 3.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
 
             if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
@@ -343,6 +344,41 @@ int main(int, char**) {
             ImGui::End();
         }
 
+
+//////////////////////////////////////////////////////////////////////////////////////
+//																					//
+//																					//
+//					Map window														//
+//																					//
+//																					//
+//////////////////////////////////////////////////////////////////////////////////////
+
+		{
+			ImGui::Begin("Map");
+
+			if (ImGui::BeginTable("table2", 3))
+			{
+
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				ImGui::Text("Wow");
+				ImGui::TableNextColumn();
+				ImGui::Text("Some contents");
+				ImGui::TableNextColumn();
+				ImGui::Text("123.456");
+				ImGui::TableNextRow();
+				ImGui::TableNextColumn();
+				ImGui::Text("Wow2");
+				ImGui::TableNextColumn();
+				ImGui::Text("Some contents2");
+				ImGui::TableNextColumn();
+				ImGui::Text("223.456");
+				ImGui::EndTable();
+			}
+			ImGui::End();
+
+		}
+
         // Rendering
         ImGui::Render();
         int display_w, display_h;
@@ -352,16 +388,6 @@ int main(int, char**) {
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     	
-        // Update and Render additional Platform Windows
-        // (Platform functions may change the current OpenGL context, so we save/restore it to make it easier to paste this code elsewhere.
-        //  For this specific demo app we could also call glfwMakeContextCurrent(window) directly)
-        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-        {
-            GLFWwindow* backup_current_context = glfwGetCurrentContext();
-            ImGui::UpdatePlatformWindows();
-            ImGui::RenderPlatformWindowsDefault();
-            glfwMakeContextCurrent(backup_current_context);
-        }
 
         glfwSwapBuffers(window);
 	
