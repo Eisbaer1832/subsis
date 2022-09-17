@@ -45,6 +45,7 @@ string answer, file;
 //statistic integers
 int cycle, lost_money, error_count;
 
+// int field_type_1, field_type_2, field_type_3, field_type_4, field_type_5, field_type_6, field_type_7, field_type_8, field_type_9, field_type_10, field_type_11, field_type_12, field_type_13, field_type_14, field_type_15, ield_type_16, field_type_17, field_type_18, field_type_19, field_type_20;
 
 //integers for (possible) losses
 int possible_loss, delay_passenger;
@@ -356,6 +357,7 @@ int main(int, char**) {
 			if (ImGui::BeginTable("table2", 3))
 			{
 				string type[17];
+				string field_type_[20];
 				while (type_cycle < 16)
 				{
 					// Reads 16 Ints form json file
@@ -365,9 +367,9 @@ int main(int, char**) {
 					json map = json::parse(file);
 					string field_temp_type = map[cycle_read]["type"];
 					type[type_cycle] = field_temp_type;
-					//prints all
-					//cout << type[type_cycle] << endl;
-					// Idea: save values in arrey
+					field_temp_type = field_type_[type_cycle];
+					cout << field_type_[type_cycle] << endl;
+					// Idea: save values in arrey 
 				}
 
 				ImGui::TableNextColumn();
