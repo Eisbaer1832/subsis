@@ -20,6 +20,9 @@ using namespace std;
 #endif
 #include <GLFW/glfw3.h>
 #include <thread>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 string train1, train2, train3;
 
 // intagers and bools for example train 1
@@ -47,11 +50,142 @@ int cycle, lost_money, error_count;
 
 // int field_type_1, field_type_2, field_type_3, field_type_4, field_type_5, field_type_6, field_type_7, field_type_8, field_type_9, field_type_10, field_type_11, field_type_12, field_type_13, field_type_14, field_type_15, ield_type_16, field_type_17, field_type_18, field_type_19, field_type_20;
 
+
+
+
 //integers for (possible) losses
 int possible_loss, delay_passenger;
 
+//////////////////////////////////////////////////////////////////////////////////////
+//																					//
+//																					//
+//						Image loading												//
+//																					//
+//																					//
+//////////////////////////////////////////////////////////////////////////////////////
 
-   
+bool LoadTextureFromFile(const char* filename, GLuint* out_texture, int* out_width, int* out_height)
+	{
+		// Load from file
+		int image_width = 0;
+		int image_height = 0;
+		unsigned char* image_data = stbi_load(filename, &image_width, &image_height, NULL, 4);
+		if (image_data == NULL)
+			return false;
+
+		// Create a OpenGL texture identifier
+		GLuint image_texture;
+		glGenTextures(1, &image_texture);
+		glBindTexture(GL_TEXTURE_2D, image_texture);
+
+		// Setup filtering parameters for display
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // This is required on WebGL for non power-of-two textures
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); // Same
+
+		// Upload pixels into texture
+	#if defined(GL_UNPACK_ROW_LENGTH) && !defined(__EMSCRIPTEN__)
+		glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+	#endif
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+		stbi_image_free(image_data);
+
+		*out_texture = image_texture;
+		*out_width = image_width;
+		*out_height = image_height;
+
+		return true;
+}
+void SetupImGuiStyle()
+{
+	// Visual Studio style by MomoDeve from ImThemes
+	ImGuiStyle& style = ImGui::GetStyle();
+	
+	style.Alpha = 1.0;
+	style.DisabledAlpha = 0.6000000238418579;
+	style.WindowPadding = ImVec2(8.0, 8.0);
+	style.WindowRounding = 0.0;
+	style.WindowBorderSize = 1.0;
+	style.WindowMinSize = ImVec2(32.0, 32.0);
+	style.WindowTitleAlign = ImVec2(0.0, 0.5);
+	style.WindowMenuButtonPosition = ImGuiDir_Left;
+	style.ChildRounding = 0.0;
+	style.ChildBorderSize = 1.0;
+	style.PopupRounding = 0.0;
+	style.PopupBorderSize = 1.0;
+	style.FramePadding = ImVec2(4.0, 3.0);
+	style.FrameRounding = 0.0;
+	style.FrameBorderSize = 0.0;
+	style.ItemSpacing = ImVec2(8.0, 4.0);
+	style.ItemInnerSpacing = ImVec2(4.0, 4.0);
+	style.CellPadding = ImVec2(4.0, 2.0);
+	style.IndentSpacing = 21.0;
+	style.ColumnsMinSpacing = 6.0;
+	style.ScrollbarSize = 14.0;
+	style.ScrollbarRounding = 0.0;
+	style.GrabMinSize = 10.0;
+	style.GrabRounding = 0.0;
+	style.TabRounding = 0.0;
+	style.TabBorderSize = 0.0;
+	style.TabMinWidthForCloseButton = 0.0;
+	style.ColorButtonPosition = ImGuiDir_Right;
+	style.ButtonTextAlign = ImVec2(0.5, 0.5);
+	style.SelectableTextAlign = ImVec2(0.0, 0.0);
+	
+	style.Colors[ImGuiCol_Text] = ImVec4(1.0, 1.0, 1.0, 1.0);
+	style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.5921568870544434, 0.5921568870544434, 0.5921568870544434, 1.0);
+	style.Colors[ImGuiCol_WindowBg] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_ChildBg] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_PopupBg] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_Border] = ImVec4(0.3058823645114899, 0.3058823645114899, 0.3058823645114899, 1.0);
+	style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.3058823645114899, 0.3058823645114899, 0.3058823645114899, 1.0);
+	style.Colors[ImGuiCol_FrameBg] = ImVec4(0.2000000029802322, 0.2000000029802322, 0.2156862765550613, 1.0);
+	style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.1137254908680916, 0.5921568870544434, 0.9254902005195618, 1.0);
+	style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.0, 0.4666666686534882, 0.7843137383460999, 1.0);
+	style.Colors[ImGuiCol_TitleBg] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.2000000029802322, 0.2000000029802322, 0.2156862765550613, 1.0);
+	style.Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.2000000029802322, 0.2000000029802322, 0.2156862765550613, 1.0);
+	style.Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.321568638086319, 0.321568638086319, 0.3333333432674408, 1.0);
+	style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.3529411852359772, 0.3529411852359772, 0.3725490272045135, 1.0);
+	style.Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.3529411852359772, 0.3529411852359772, 0.3725490272045135, 1.0);
+	style.Colors[ImGuiCol_CheckMark] = ImVec4(0.0, 0.4666666686534882, 0.7843137383460999, 1.0);
+	style.Colors[ImGuiCol_SliderGrab] = ImVec4(0.1137254908680916, 0.5921568870544434, 0.9254902005195618, 1.0);
+	style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.0, 0.4666666686534882, 0.7843137383460999, 1.0);
+	style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.1137254908680916, 0.5921568870544434, 0.9254902005195618, 1.0);
+	style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.1137254908680916, 0.5921568870544434, 0.9254902005195618, 1.0);
+	style.Colors[ImGuiCol_Header] = ImVec4(0.2000000029802322, 0.2000000029802322, 0.2156862765550613, 1.0);
+	style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.1137254908680916, 0.5921568870544434, 0.9254902005195618, 1.0);
+	style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.0, 0.4666666686534882, 0.7843137383460999, 1.0);
+	style.Colors[ImGuiCol_Separator] = ImVec4(0.3058823645114899, 0.3058823645114899, 0.3058823645114899, 1.0);
+	style.Colors[ImGuiCol_SeparatorHovered] = ImVec4(0.3058823645114899, 0.3058823645114899, 0.3058823645114899, 1.0);
+	style.Colors[ImGuiCol_SeparatorActive] = ImVec4(0.3058823645114899, 0.3058823645114899, 0.3058823645114899, 1.0);
+	style.Colors[ImGuiCol_ResizeGrip] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.2000000029802322, 0.2000000029802322, 0.2156862765550613, 1.0);
+	style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(0.321568638086319, 0.321568638086319, 0.3333333432674408, 1.0);
+	style.Colors[ImGuiCol_Tab] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_TabHovered] = ImVec4(0.1137254908680916, 0.5921568870544434, 0.9254902005195618, 1.0);
+	style.Colors[ImGuiCol_TabActive] = ImVec4(0.0, 0.4666666686534882, 0.7843137383460999, 1.0);
+	style.Colors[ImGuiCol_TabUnfocused] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.0, 0.4666666686534882, 0.7843137383460999, 1.0);
+	style.Colors[ImGuiCol_PlotLines] = ImVec4(0.0, 0.4666666686534882, 0.7843137383460999, 1.0);
+	style.Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.1137254908680916, 0.5921568870544434, 0.9254902005195618, 1.0);
+	style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.0, 0.4666666686534882, 0.7843137383460999, 1.0);
+	style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.1137254908680916, 0.5921568870544434, 0.9254902005195618, 1.0);
+	style.Colors[ImGuiCol_TableHeaderBg] = ImVec4(0.1882352977991104, 0.1882352977991104, 0.2000000029802322, 1.0);
+	style.Colors[ImGuiCol_TableBorderStrong] = ImVec4(0.3098039329051971, 0.3098039329051971, 0.3490196168422699, 1.0);
+	style.Colors[ImGuiCol_TableBorderLight] = ImVec4(0.2274509817361832, 0.2274509817361832, 0.2470588237047195, 1.0);
+	style.Colors[ImGuiCol_TableRowBg] = ImVec4(0.0, 0.0, 0.0, 0.0);
+	style.Colors[ImGuiCol_TableRowBgAlt] = ImVec4(1.0, 1.0, 1.0, 0.05999999865889549);
+	style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.0, 0.4666666686534882, 0.7843137383460999, 1.0);
+	style.Colors[ImGuiCol_DragDropTarget] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_NavHighlight] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+	style.Colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.0, 1.0, 1.0, 0.699999988079071);
+	style.Colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.800000011920929, 0.800000011920929, 0.800000011920929, 0.2000000029802322);
+	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
+}
 //////////////////////////////////////////////////////////////////////////////////////
 //																					//
 //																					//
@@ -59,8 +193,6 @@ int possible_loss, delay_passenger;
 //																					//
 //																					//
 //////////////////////////////////////////////////////////////////////////////////////
-
-
 
 // function if train is too late 
 void finished() {
@@ -270,7 +402,7 @@ int main(int, char**) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 #endif
 
-
+	
 	GLFWwindow* window = glfwCreateWindow(1920, 1080, "Stoerungs und Beeintraechtigungs Simulation im Schienenverkehr", NULL, NULL);
     if (window == NULL)
         return 1;
@@ -279,13 +411,16 @@ int main(int, char**) {
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGui::StyleColorsLight();
- 	
+	SetupImGuiStyle();
+	
 	ImGuiStyle& style = ImGui::GetStyle();
 	ImGuiIO& io = ImGui::GetIO();
 	io.Fonts->AddFontFromFileTTF("font.ttf", 16);
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; 
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;       
+
+   
+   	ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
         style.WindowRounding = 0.0f;
@@ -296,52 +431,84 @@ int main(int, char**) {
     ImGui_ImplOpenGL3_Init(glsl_version);
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	// image config
+	int my_image_width = 0;
+	int my_image_height = 0;
+	GLuint my_image_texture = 0;
+	bool main_window_active = true;
+	bool log_window_active = false;
+	bool map_window_active = false;
+	bool grid_test_window_active = false;
 
+	bool ret = LoadTextureFromFile("../Tux.png", &my_image_texture, &my_image_width, &my_image_height);
+	IM_ASSERT(ret);
 	// Main loop
+
     while (!glfwWindowShouldClose(window))
     {
+
         glfwPollEvents();
 
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+		ImGui::DockSpaceOverViewport();
 
-        {
-            static float f = 0.0f;
-            static int counter = 0;
+		ImGui::BeginMainMenuBar();
+						
+			if (ImGui::Button("Toggle Main"))
+			{
+				if (main_window_active == true)
+				{
+					main_window_active = false;
+				}else{
+					main_window_active = true;
+				}
+			}
 
-            ImGui::Begin("Overwiev!");                          // Create a window called "Hello, world!" and append into it.
+			if (ImGui::Button("Toggle Log"))
+			{
+				if (log_window_active == true)
+				{
+					log_window_active = false;
+				}else{
+					log_window_active = true;
+				}
+			}
+			
+			if (ImGui::Button("Toggle Map"))
+			{
+				if (map_window_active == true)
+				{
+					map_window_active = false;
+				}else{
+					map_window_active = true;
+				}
+			}
 
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-
-            ImGui::SliderFloat("float", &f, 0.0f, 3.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
-
-            ImGui::Text("Application average %.0f ms/frame (%.120f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            ImGui::End();
-        }
-
+		ImGui::EndMainMenuBar();
+		
+		if (main_window_active == true)
 		{
+			ImGui::Begin("Main Window");
+			ImGui::End();
+		}
 
+		if (log_window_active == true)
+		{
             ImGui::Begin("Logs!");
 
-            ImGui::Text("train1_current = %d", train1_current);               // Display some text (you can use a format strings too
-            ImGui::Text("train1_left = %d", train1_left);              // Display some text (you can use a format strings too
-            ImGui::Text("train1_direction = %d", train1_direction);               // Display some text (you can use a format strings too
-            ImGui::Text("train1_aproximet = %d", train1_aproximet);               // Display some text (you can use a format strings too
-            ImGui::Text("train1_length = %d", train1_length);               // Display some text (you can use a format strings too
-            ImGui::Text("cycle = %d", cycle);               // Display some text (you can use a format strings too
-
+            ImGui::Text("train1_current = %d", train1_current);
+            ImGui::Text("train1_left = %d", train1_left);           
+            ImGui::Text("train1_direction = %d", train1_direction);
+            ImGui::Text("train1_aproximet = %d", train1_aproximet);
+            ImGui::Text("train1_length = %d", train1_length);
+            ImGui::Text("cycle = %d", cycle);
 
             ImGui::End();
         }
-
+		
 
 //////////////////////////////////////////////////////////////////////////////////////
 //																					//
@@ -351,13 +518,33 @@ int main(int, char**) {
 //																					//
 //////////////////////////////////////////////////////////////////////////////////////
 
+		if (map_window_active == true)
 		{
 			ImGui::Begin("Map");
+	
+	
 			string cycle_read;
+	
 			if (ImGui::BeginTable("table2", 3))
 			{
+				string field_temp_type;
 				string type[17];
-				string field_type_[20];
+				int field_types[16];
+				int my_image_width = 0;
+				int my_image_height = 0;
+				GLuint my_image_texture = 0;
+				bool ret = LoadTextureFromFile("../type_1.png", &type_1, &my_image_width, &my_image_height);
+				bool ret = LoadTextureFromFile("../type_2.png", &type_2, &my_image_width, &my_image_height);
+				bool ret = LoadTextureFromFile("../type_3.png", &type_3, &my_image_width, &my_image_height);
+				bool ret = LoadTextureFromFile("../type_4.png", &type_4, &my_image_width, &my_image_height);
+				bool ret = LoadTextureFromFile("../type_5.png", &type_5, &my_image_width, &my_image_height);
+				bool ret = LoadTextureFromFile("../type_6.png", &type_6, &my_image_width, &my_image_height);
+				bool ret = LoadTextureFromFile("../type_7.png", &type_7, &my_image_width, &my_image_height);
+				bool ret = LoadTextureFromFile("../type_8.png", &type_8, &my_image_width, &my_image_height);
+				bool ret = LoadTextureFromFile("../type_9.png", &type_9, &my_image_width, &my_image_height);
+				bool ret = LoadTextureFromFile("../type_10.png", &type_10, &my_image_width, &my_image_height);
+				bool ret = LoadTextureFromFile("../type_11.png", &type_11, &my_image_width, &my_image_height);
+				
 				while (type_cycle < 16)
 				{
 					// Reads 16 Ints form json file
@@ -365,31 +552,23 @@ int main(int, char**) {
 					std::string cycle_read = std::to_string(type_cycle);
 					std::ifstream file("./json/mapdata.json");
 					json map = json::parse(file);
-					string field_temp_type = map[cycle_read]["type"];
+					field_temp_type = map[cycle_read]["type"];
 					type[type_cycle] = field_temp_type;
-					field_temp_type = field_type_[type_cycle];
-					cout << field_type_[type_cycle] << endl;
-					// Idea: save values in arrey 
+					field_types[type_cycle] = std::stoi(field_temp_type);
 				}
+				
+				ImGui::TableNextColumn();
+				ImGui::TableNextRow();
 
-				ImGui::TableNextColumn();
-				ImGui::TableNextRow();
-				ImGui::Text("one");
-				ImGui::TableNextColumn();
-				ImGui::Text("Some contents");
-				ImGui::TableNextColumn();
-				ImGui::Text("123.456");
-				ImGui::TableNextRow();
-				ImGui::TableNextColumn();
-				ImGui::Text("Wow2");
-				ImGui::TableNextColumn();
-				ImGui::Text("Some contents2");
-				ImGui::TableNextColumn();
-				ImGui::Text("223.456");
-				ImGui::EndTable();
+				while (map_cycle < 17)
+				{
+					map_cycle++;
+					ImGui::TableNextColumn();
+					ImGui::Image((void*)(intptr_t)field_types[map_cycle], ImVec2(my_image_width, my_image_height));
+				}
+				ImGui::EndTable();					
 			}
 			ImGui::End();
-
 		}
 
         // Rendering
@@ -400,7 +579,11 @@ int main(int, char**) {
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    	
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+		}
 
         glfwSwapBuffers(window);
 	
