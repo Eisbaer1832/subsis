@@ -42,6 +42,7 @@
 - 30 = rocks
 - 31 = grass
 - 32 = lake
+- 33 = (Bahnübergang)
 
 ### Signalstates
 - 0 = no signal

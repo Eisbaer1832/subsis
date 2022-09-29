@@ -48,6 +48,7 @@ string answer, file;
 //statistic integers
 int cycle, lost_money, error_count;
 
+string menu_time;
 // int field_type_1, field_type_2, field_type_3, field_type_4, field_type_5, field_type_6, field_type_7, field_type_8, field_type_9, field_type_10, field_type_11, field_type_12, field_type_13, field_type_14, field_type_15, ield_type_16, field_type_17, field_type_18, field_type_19, field_type_20;
 
 
@@ -55,6 +56,13 @@ int cycle, lost_money, error_count;
 
 //integers for (possible) losses
 int possible_loss, delay_passenger;
+
+//variables for clock and timing 
+int global_hour = 0;
+int global_minute = 0;
+string global_string_hour = "00";
+string global_string_minute = "00";
+string global_clock = "00:00";
 
 //////////////////////////////////////////////////////////////////////////////////////
 //																					//
@@ -274,9 +282,8 @@ void create_problem() {
 
 void train_stuff()
 {
-		
 		while(train1_aproximet == train1_aproximet)
-		{	
+		{
 			// Resets existing problems
 			train1_problem_cycle++;
 
@@ -325,14 +332,48 @@ void train_stuff()
 				if ((train1_length - train1_current) >= train1_length){
 				finished();	
 				}	
-		}
+			}
 
-		log();
+			log();
 		
-		cout << "###################################" << endl;
-		
-		Sleep(1000);
+			
+			global_minute++;
 
+			if (global_minute == 60) 
+			{
+				global_minute = 0;
+				global_hour++;
+				
+				if (global_hour == 24)
+				{
+					global_hour = 0;
+				}
+
+			}
+
+			if (global_minute < 10) 
+			{
+				global_string_minute = "0" + std::to_string(global_minute);
+				cout << global_string_minute << endl;
+			}else{
+				global_string_minute = std::to_string(global_minute);
+			}
+			
+			
+			if (global_hour < 10) 
+			{
+				global_string_hour = "0" + std::to_string(global_hour);
+			}else{
+				global_string_hour = std::to_string(global_hour);
+			}
+			
+			global_clock = global_string_hour +  ":" + global_string_minute + " Uhr";
+			cout << global_clock << endl;
+			menu_time = global_clock;
+
+			cout << "###################################" << endl;
+
+			Sleep(1000);
 		}
 
 }
@@ -402,7 +443,7 @@ int main(int, char**) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 #endif
 
-	
+
 	GLFWwindow* window = glfwCreateWindow(1920, 1080, "Stoerungs und Beeintraechtigungs Simulation im Schienenverkehr", NULL, NULL);
     if (window == NULL)
         return 1;
@@ -469,7 +510,7 @@ int main(int, char**) {
 	bool ret16 = LoadTextureFromFile("../type_16.jpg", &type_16, &my_image_width, &my_image_height);
 	
 	
-	bool main_window_active = true;
+	bool train_window_active = false;
 	bool log_window_active = false;
 	bool map_window_active = false;
 	bool grid_test_window_active = false;
@@ -488,14 +529,17 @@ int main(int, char**) {
 		ImGui::DockSpaceOverViewport();
 
 		ImGui::BeginMainMenuBar();
+				
+
+			
 						
-			if (ImGui::Button("Toggle Main"))
+			if (ImGui::Button("Toggle train"))
 			{
-				if (main_window_active == true)
+				if (train_window_active == true)
 				{
-					main_window_active = false;
+					train_window_active = false;
 				}else{
-					main_window_active = true;
+					train_window_active = true;
 				}
 			}
 
@@ -519,11 +563,74 @@ int main(int, char**) {
 				}
 			}
 
+
 		ImGui::EndMainMenuBar();
 		
-		if (main_window_active == true)
+//////////////////////////////////////////////////////////////////////////////////////
+//																					//
+//																					//
+//								Train window 🚆		🦆🦆🦆🦆🦆🦆🦆	    	   	//
+//																					//
+//																					//
+//////////////////////////////////////////////////////////////////////////////////////
+
+		if (train_window_active == true)
 		{
-			ImGui::Begin("Main Window");
+			ImGui::Begin("train Window");
+			int train_count = 2;
+			string train_name[2];
+			string cycle_read;
+			string train_temp_name;
+			while (type_cycle <= train_count)
+			{
+				// Reads 16 Ints form json file
+				type_cycle++;
+				std::string cycle_read = std::to_string(type_cycle);
+				std::ifstream file("./json/traindata.json");
+				json train = json::parse(file);
+				train_temp_name = train[cycle_read]["name"];
+				//train_name[type_cycle] = train_temp_name;
+			}
+        	{
+	            ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
+				ImGui::BeginChild("train list", ImVec2(ImGui::GetContentRegionAvail().x * 0.5f, 260), false, window_flags);
+				static int item_current_idx = 0;
+				if (ImGui::BeginListBox("##Trains", ImVec2(-FLT_MIN, 100 * ImGui::GetTextLineHeightWithSpacing())))
+				{
+					for (int n = 0; n < IM_ARRAYSIZE(train_name); n++)
+					{
+						bool is_selected = (item_current_idx == n);
+						if (ImGui::Selectable("test", is_selected))
+							item_current_idx = n;
+
+						if (is_selected)
+							ImGui::SetItemDefaultFocus();
+					}
+					ImGui::EndListBox();
+				}
+            	ImGui::EndChild();
+			}
+
+	        ImGui::SameLine();
+        	{
+				ImGui::BeginChild("train list2", ImVec2(0, 260), false);
+				const char* items[] = { "train1", "train2", "CCCC", "DDDD", "EEEE", "FFFF", "GGGG", "HHHH", "IIII", "JJJJ", "KKKK", "LLLLLLL", "MMMM", "OOOOOOO" };
+				static int item_current_idx = 0;
+				if (ImGui::BeginListBox("Trains", ImVec2(-FLT_MIN, 50 * ImGui::GetTextLineHeightWithSpacing())))
+				{
+					for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+					{
+						const bool is_selected = (item_current_idx == n);
+						if (ImGui::Selectable(items[n], is_selected))
+							item_current_idx = n;
+
+						if (is_selected)
+							ImGui::SetItemDefaultFocus();
+					}
+					ImGui::EndListBox();
+				}
+            	ImGui::EndChild();
+			}
 			ImGui::End();
 		}
 
@@ -578,22 +685,7 @@ int main(int, char**) {
 				//field_types[type_cycle] = std::stoi(field_temp_type);
 			}
 
-			ImGui::Image((void*)(intptr_t) std::stoi(type[1]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[2]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[3]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[4]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[5]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[6]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[7]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[8]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[9]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[10]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[11]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[12]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[13]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[14]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[15]) , ImVec2(my_image_width, my_image_height));
-			ImGui::Image((void*)(intptr_t) std::stoi(type[15]) , ImVec2(my_image_width, my_image_height));
+
 
 			ImGui::End();
 		}
@@ -626,4 +718,5 @@ int main(int, char**) {
     glfwTerminate();
 
     return 0;
+	
 }

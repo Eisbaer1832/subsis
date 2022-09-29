@@ -1,0 +1,14 @@
+{
+  "1": {
+    "name": "example ice 1",
+    "type": "ice",
+    "max_speed": "200",
+    "railway": ["example1","example2"]
+  },
+  "2": {
+    "name": "example ice 2",
+    "type": "ice",
+    "max_speed": "100",
+    "railway": ["example2","example3"]
+  }
+}
