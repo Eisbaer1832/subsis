@@ -1,7 +1,6 @@
 #include <fstream>
 #include "../nlohmann/json.hpp"
 #include <iostream>
-#include <chrono>
 #include <math.h>
 #ifdef _WINDOWS
 #include <windows.h>
@@ -11,27 +10,36 @@
 #endif
 using json = nlohmann::json;
 using namespace std;
-#include "imgui.h"
-#include "imgui_impl_glfw.h"
-#include "imgui_impl_opengl3.h"
-#include <stdio.h>
+#include "../imgui/imgui.h"
+#include "../backends/imgui_impl_glfw.h"
+#include "../backends/imgui_impl_opengl3.h"
 #if defined(IMGUI_IMPL_OPENGL_ES2)
 #include <GLES2/gl2.h>
 #endif
 #include <GLFW/glfw3.h>
 #include <thread>
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-#include <cstdint>
-string train1, train2, train3;
+#include "../backends/stb_image.h"
 
-// intagers and bools for example train 1
-int train1_left, train1_problem_time, train1_problem_cycle, train1_railroad, train1_aproximet, train1_ticket_price, train1_passengers, train1_length, train1_current, train1_time, train1_speed, train1_saved_speed;
-bool train1_direction;
+// Declares how many Trains should be created
+int trains_to_create = 4;
 
-// intagers and bools for example train 2
-int train2_left, train2_railroad, train2_aproximet, train2_ticket_price, train2_passengers, train2_length, train2_current, train2_time, train2_speed, train2_saved_speed;
-bool train2_direction;
+string train [] = {};
+int train_left [] = {};
+int train_problem_time [] = {};
+int train_problem_cycle [] = {};
+int train_railroad [] = {};
+int train_aproximet [] = {};
+int train_ticket_price [] = {};
+int train_passengers [] = {};
+int train_length [] = {};
+int train_current [] = {};
+int train_time [] = {};
+float train_speed [] = {};
+int train_saved_speed [] = {};
+bool train_direction [] = {};
+// arays arent  used in code yet.
+
 
 // int and bools for railroad system
 int railroad1_length, railroad2_length;
@@ -203,34 +211,33 @@ void SetupImGuiStyle()
 //////////////////////////////////////////////////////////////////////////////////////
 
 // function if train is too late 
-void finished() {
+void finished(int chosen_train) {
 
-	if (train1_time != train1_aproximet){
+	if (train_time[chosen_train] != train_aproximet[chosen_train]){
 		cout << "One Train arrived too late" << endl;
 		error_count++;
 	}else{
 		cout << "Train arrived in time" << endl;
 	}
 	
-	if (train1_direction == true) 
+	if (train_direction[chosen_train] == true) 
 	{
-		train1_direction = false;
+		train_direction[chosen_train] = false;
 	}else{
-		train1_direction = true;
+		train_direction[chosen_train] = true;
 	}
-	train1_time = 0;
+	train_time[chosen_train] = 0;
 }
 
 
 // Calculates best option when a train wont arrive in time.
-void best_option() {
+void best_option(int i) {
 	//cout << "calculating best option" << endl;
-
-	if ((train1_left + train1_current) - train1_aproximet >= 60 &&  (train1_left + train1_current) - train1_aproximet < 120){
+	if ((train_left[i] + train_current[i]) - train_aproximet[i] >= 60 &&  (train_left[i] + train_current[i]) - train_aproximet[i] < 120){
 		cout << "One train is at least 60 minutes late!" << endl;
 		// 25% loss of income per ticket
 	}
-	if ((train1_left + train1_current) - train1_aproximet >= 120){
+	if ((train_left[i] + train_current[i]) - train_aproximet[i] >= 120){
 		cout << "One train is at least 120 minutes late!" << endl;
 		// 50% loss of income per ticket
 	}
@@ -242,20 +249,16 @@ void railroad_init() {
 	railroad2_length = 3000;
 	int railroad1_crossing_2 = 2300;
 	int railroad2_crossing_1 = 300;
-
-	train1_railroad = 1;
-	train2_railroad = 2;
-
 }
 
 
 // Logs all important values to console.
-void log() {				
-	cout << "left: " << train1_left << endl;
-	cout << "current: " << train1_current <<endl;
-	cout << "aproximet left: " <<  (train1_aproximet - train1_current / (train1_speed)) << endl; 
-	cout << "length: " << train1_length << endl;
-	cout << "aproximet: " << train1_aproximet << endl;
+void log(int i) {			
+	cout << "left: " << train_left[i] << endl;
+	cout << "current: " << train_current[i] <<endl;
+	cout << "aproximet left: " <<  (train_aproximet[i] - train_current[i] / (train_speed[i])) << endl; 
+	cout << "length: " << train_length[i] << endl;
+	cout << "aproximet: " << train_aproximet[i] << endl;
 	cout << "cycle: " << cycle << endl;
 
 }
@@ -272,150 +275,148 @@ void rebuild_database(){
 	file << std::setw(4) << jsonfile << endl;
 }
 // Creates Problems
-void create_problem() {
+void create_problem(int i) {
 	if (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 1.5){
 		cout << "A problem occured." << endl;	
-		train1_speed = 10;
-		train1_problem_time = (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 5);
+		train_speed[i] = 10;
+		train_problem_time[i] = (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 5);
 	}
 }
 
-void train_stuff()
+void train_stuff(int i)
 {
-		while(train1_aproximet == train1_aproximet)
-		{
-			// Resets existing problems
-			train1_problem_cycle++;
+	while(train_aproximet[i] == train_aproximet[i])
+	{
+		// Resets existing problems
+		train_problem_cycle[i]++;
 
-			if (train1_problem_cycle >= train1_problem_time) {
-				train1_speed = train1_saved_speed;
-				train1_problem_cycle = 0;
+		if (train_problem_cycle[i] >= train_problem_time[i]) {
+			train_speed[i] = train_saved_speed[i];
+			train_problem_cycle[i] = 0;
+		} 
 
-			} 
-
-			// Triggers creation of roblems
-			create_problem();	
+		// Triggers creation of roblems
+		create_problem(i);	
 		
-			// Used for logging
-			cycle++;
+		// Used for logging
+		cycle++;
 			
-			// Moves the train
-			train1_time++;
-			if (train1_direction == true){
-				train1_current = train1_current + train1_speed;	
-				train1_left = (train1_length - train1_current) / (train1_speed);
+		// Moves the train
+		train_time[i]++;
+		if (train_direction[i] == true){
+			train_current[i] = train_current[i] + train_speed[i];	
+			train_left[i] = (train_length[i] - train_current[i]) / (train_speed[i]);
 				
-				// Checks if train will arrive in time
-				if (train1_left > (train1_aproximet - train1_current / (train1_speed))){
+			// Checks if train will arrive in time
+			if (train_left[i] > (train_aproximet[i] - train_current[i] / (train_speed[i]))){
 
-					// A train probaply wont arrive in time!
-					cout << "A train wont arrive in time." << endl;
-					best_option();
-				}
-
-				// Checks if Train arrived its destination
-				if (train1_current >= train1_length){
-				finished();	
-				}	
-			}else{
-				train1_current = train1_current - train1_speed;	
-				train1_left = (train1_length - (train1_length - train1_current)) / (train1_speed);
-				
-				// Checks if train will arrive in time
-				if (train1_left > (train1_aproximet - (train1_length - train1_current) / (train1_speed))){
-					// A train probaply wont arrive in time!
-					cout << "A train wont arrive in time." << endl;
-					best_option();
-				}
-				
-				// Checks if Train arrived its destination
-				if ((train1_length - train1_current) >= train1_length){
-				finished();	
-				}	
+				// A train probaply wont arrive in time!
+				cout << "A train wont arrive in time." << endl;
+				best_option(i);
 			}
 
-			log();
-		
-			
-			global_minute++;
-
-			if (global_minute == 60) 
-			{
-				global_minute = 0;
-				global_hour++;
+			// Checks if Train arrived its destination
+			if (train_current[i] >= train_length[i]){
+				finished(i);	
+			}	
+		}else{
+			train_current[i] = train_current[i] - train_speed[i];	
+			train_left[i] = (train_length[i] - (train_length[i] - train_current[i])) / (train_speed[i]);
 				
-				if (global_hour == 24)
-				{
-					global_hour = 0;
-				}
-
+			// Checks if train will arrive in time
+			if (train_left[i] > (train_aproximet[i] - (train_length[i] - train_current[i]) / (train_speed[i]))){
+				// A train probaply wont arrive in time!
+				cout << "A train wont arrive in time." << endl;
+				best_option(i);
 			}
-
-			if (global_minute < 10) 
-			{
-				global_string_minute = "0" + std::to_string(global_minute);
-				cout << global_string_minute << endl;
-			}else{
-				global_string_minute = std::to_string(global_minute);
-			}
-			
-			
-			if (global_hour < 10) 
-			{
-				global_string_hour = "0" + std::to_string(global_hour);
-			}else{
-				global_string_hour = std::to_string(global_hour);
-			}
-			
-			global_clock = global_string_hour +  ":" + global_string_minute + " Uhr";
-			cout << global_clock << endl;
-			menu_time = global_clock;
-
-			cout << "###################################" << endl;
-
-			Sleep(1000);
+				
+			// Checks if Train arrived its destination
+			if ((train_length[i] - train_current[i]) >= train_length[i]){
+				finished(i);	
+			}	
 		}
+
+		log(i);
+		
+			
+		global_minute++;
+
+		if (global_minute == 60) 
+		{
+			global_minute = 0;
+			global_hour++;
+			
+			if (global_hour == 24)
+			{
+				global_hour = 0;
+			}
+		}
+
+		if (global_minute < 10) 
+		{
+			global_string_minute = "0" + std::to_string(global_minute);
+			cout << global_string_minute << endl;
+		}else{
+			global_string_minute = std::to_string(global_minute);
+		}
+			
+			
+		if (global_hour < 10) 
+		{
+			global_string_hour = "0" + std::to_string(global_hour);
+		}else{
+			global_string_hour = std::to_string(global_hour);
+		}
+
+		global_clock = global_string_hour +  ":" + global_string_minute + " Uhr";
+		cout << global_clock << endl;
+		menu_time = global_clock;
+		cout << "###################################" << endl;
+		Sleep(1000);
+	}
 
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
-//																					//
-//																					//
-//									main function									//
-//																					//
-//																					//
+//										    //
+//				main function				            //
+//									            //
 //////////////////////////////////////////////////////////////////////////////////////
 
 //main function
 int main(int, char**) {
-	
-	// Sets values for example train1
-	train1_length = 500;
-	train1_speed = 25;
-	train1_direction = true;
-	train1_problem_cycle = 0;
-	train1_passengers = 120;
-	train1_aproximet = (train1_length / train1_speed);	  
-	cout << "In this simultaion one second is equal to one minute!" << endl;
-	train1_saved_speed = train1_speed;
-	//cout << "Would you like to rebuild the database and rebuild the database? y/n" << endl; 
-	//cin >> answer;
-	
-	if (answer == "y"){
-		cout << "Rebuilding database ..." << endl;
-		rebuild_database();
-	}
-	std::thread x(train_stuff);
-	x.detach();
+	int i = 0;
+	while (i < trains_to_create)
+	{
+        i++;
+		train_direction[i] = true;
+		train_problem_cycle[i] = 0;
+		train_speed[i] = 25;
+		train_passengers[i] = 120;
+		train_aproximet[i] = (train_length[i] / train_speed[i]);	  
+		train_saved_speed[i] = train_speed[i];
+        train_length[i] = 500;
 
+		// Info
+		cout << "In this simultaion one second is equal to one minute!" << endl;
+
+		//cout << "Would you like to rebuild the database and rebuild the database? y/n" << endl; 
+		//cin >> answer;
+	
+		if (answer == "y"){
+			cout << "Rebuilding database ..." << endl;
+			rebuild_database();
+		}
+		std::thread x([&i]() { train_stuff(i); });
+		x.detach();
+	    cout << "i: " << i << endl;
+	}
 
 
 //////////////////////////////////////////////////////////////////////////////////////
-//																					//
-//																					//
-//					Section to setup imgui dependencys								//
-//																					//
-//																					//
+//      		                                                                    //
+// 	       		Section to setup imgui dependencys	                                //
+//										                                            //
 //////////////////////////////////////////////////////////////////////////////////////
 
 	// Setup window
@@ -444,29 +445,24 @@ int main(int, char**) {
 #endif
 
 
-	GLFWwindow* window = glfwCreateWindow(1920, 1080, "Stoerungs und Beeintraechtigungs Simulation im Schienenverkehr", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(480, 120, "Stoerungs und Beeintraechtigungs Simulation im Schienenverkehr", NULL, NULL);
     if (window == NULL)
         return 1;
-	glfwMakeContextCurrent(window);
+    
+    glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-	SetupImGuiStyle();
+    SetupImGuiStyle();
 	
 	ImGuiStyle& style = ImGui::GetStyle();
 	ImGuiIO& io = ImGui::GetIO();
-	io.Fonts->AddFontFromFileTTF("font.ttf", 16);
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; 
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;       
 
    
-   	ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-    {
-        style.WindowRounding = 0.0f;
-        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
-    }
+
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
@@ -492,22 +488,22 @@ int main(int, char**) {
 	GLuint type_15 = 0;
 	GLuint type_16 = 0;
 
-	bool ret = LoadTextureFromFile("../type_1.jpg", &type_1, &my_image_width, &my_image_height);
-	bool ret2 = LoadTextureFromFile("../type_2.jpg", &type_2, &my_image_width, &my_image_height);
-	bool ret3 = LoadTextureFromFile("../type_3.jpg", &type_3, &my_image_width, &my_image_height);
-	bool ret4 = LoadTextureFromFile("../type_4.jpg", &type_4, &my_image_width, &my_image_height);
-	bool ret5 = LoadTextureFromFile("../type_5.jpg", &type_5, &my_image_width, &my_image_height);
-	bool ret6 = LoadTextureFromFile("../type_6.jpg", &type_6, &my_image_width, &my_image_height);
-	bool ret7 = LoadTextureFromFile("../type_7.jpg", &type_7, &my_image_width, &my_image_height);
-	bool ret8 = LoadTextureFromFile("../type_8.jpg", &type_8, &my_image_width, &my_image_height);
-	bool ret9 = LoadTextureFromFile("../type_9.jpg", &type_9, &my_image_width, &my_image_height);
-	bool ret10 = LoadTextureFromFile("../type_10.jpg", &type_10, &my_image_width, &my_image_height);
-	bool ret11 = LoadTextureFromFile("../type_11.jpg", &type_11, &my_image_width, &my_image_height);
-	bool ret12 = LoadTextureFromFile("../type_12.jpg", &type_12, &my_image_width, &my_image_height);	
-	bool ret13 = LoadTextureFromFile("../type_13.jpg", &type_13, &my_image_width, &my_image_height);
-	bool ret14 = LoadTextureFromFile("../type_14.jpg", &type_14, &my_image_width, &my_image_height);
-	bool ret15 = LoadTextureFromFile("../type_15.jpg", &type_15, &my_image_width, &my_image_height);
-	bool ret16 = LoadTextureFromFile("../type_16.jpg", &type_16, &my_image_width, &my_image_height);
+	//bool ret = LoadTextureFromFile("../type_1.jpg", &type_1, &my_image_width, &my_image_height);
+	//bool ret2 = LoadTextureFromFile("../type_2.jpg", &type_2, &my_image_width, &my_image_height);
+	//bool ret3 = LoadTextureFromFile("../type_3.jpg", &type_3, &my_image_width, &my_image_height);
+	//bool ret4 = LoadTextureFromFile("../type_4.jpg", &type_4, &my_image_width, &my_image_height);
+	//bool ret5 = LoadTextureFromFile("../type_5.jpg", &type_5, &my_image_width, &my_image_height);
+	//bool ret6 = LoadTextureFromFile("../type_6.jpg", &type_6, &my_image_width, &my_image_height);
+	//bool ret7 = LoadTextureFromFile("../type_7.jpg", &type_7, &my_image_width, &my_image_height);
+	//bool ret8 = LoadTextureFromFile("../type_8.jpg", &type_8, &my_image_width, &my_image_height);
+	//bool ret9 = LoadTextureFromFile("../type_9.jpg", &type_9, &my_image_width, &my_image_height);
+	//bool ret10 = LoadTextureFromFile("../type_10.jpg", &type_10, &my_image_width, &my_image_height);
+	//bool ret11 = LoadTextureFromFile("../type_11.jpg", &type_11, &my_image_width, &my_image_height);
+	//bool ret12 = LoadTextureFromFile("../type_12.jpg", &type_12, &my_image_width, &my_image_height);	
+	//bool ret13 = LoadTextureFromFile("../type_13.jpg", &type_13, &my_image_width, &my_image_height);
+	//bool ret14 = LoadTextureFromFile("../type_14.jpg", &type_14, &my_image_width, &my_image_height);
+	//bool ret15 = LoadTextureFromFile("../type_15.jpg", &type_15, &my_image_width, &my_image_height);
+	//bool ret16 = LoadTextureFromFile("../type_16.jpg", &type_16, &my_image_width, &my_image_height);
 	
 	
 	bool train_window_active = false;
@@ -530,8 +526,6 @@ int main(int, char**) {
 
 		ImGui::BeginMainMenuBar();
 				
-
-			
 						
 			if (ImGui::Button("Toggle train"))
 			{
@@ -549,10 +543,6 @@ int main(int, char**) {
 				{
 					log_window_active = false;
 				}else{
-					log_window_active = true;
-				}
-			}
-			
 			if (ImGui::Button("Toggle Map"))
 			{
 				if (map_window_active == true)
@@ -562,105 +552,112 @@ int main(int, char**) {
 					map_window_active = true;
 				}
 			}
+        ImGui::SameLine(ImGui::GetWindowWidth()-70);
+					log_window_active = true;
+				}
+			}
 
-
-		ImGui::EndMainMenuBar();
+        ImGui::AlignTextToFramePadding();
+        ImGui::Text(menu_time.c_str());
+	ImGui::EndMainMenuBar();
 		
 //////////////////////////////////////////////////////////////////////////////////////
-//																					//
-//																					//
-//								Train window 🚆		🦆🦆🦆🦆🦆🦆🦆	    	   	//
-//																					//
-//																					//
+//										                                            //
+// 										                                            //
+//	                Train window 🚆		🦆🦆🦆🦆🦆🦆🦆                              //
+//										    //
+//										    //
 //////////////////////////////////////////////////////////////////////////////////////
 
-		if (train_window_active == true)
+	if (train_window_active == true)
+	{
+		ImGui::Begin("train Window");
+		int train_count = 2;
+		string train_name[2];
+		string cycle_read;
+		string train_temp_name;
+		while (type_cycle < train_count)
 		{
-			ImGui::Begin("train Window");
-			int train_count = 2;
-			string train_name[2];
-			string cycle_read;
-			string train_temp_name;
-			while (type_cycle <= train_count)
+			// Reads 16 Ints form json file
+			type_cycle++;
+			std::string cycle_read = std::to_string(type_cycle);
+			std::ifstream file("./json/traindata.json");
+			json train = json::parse(file);
+			train_temp_name = train[cycle_read]["name"];
+			//train_name[type_cycle] = train_temp_name;
+		}
+       	{
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
+	ImGui::BeginChild("train list", ImVec2(ImGui::GetContentRegionAvail().x * 0.5f, 260), false, window_flags);
+	static int item_current_idx = 0;
+	if (ImGui::BeginListBox("##Trains", ImVec2(-FLT_MIN, 100 * ImGui::GetTextLineHeightWithSpacing())))
+		{
+			for (int n = 0; n < IM_ARRAYSIZE(train_name); n++)
 			{
-				// Reads 16 Ints form json file
-				type_cycle++;
-				std::string cycle_read = std::to_string(type_cycle);
-				std::ifstream file("./json/traindata.json");
-				json train = json::parse(file);
-				train_temp_name = train[cycle_read]["name"];
-				//train_name[type_cycle] = train_temp_name;
-			}
-        	{
-	            ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
-				ImGui::BeginChild("train list", ImVec2(ImGui::GetContentRegionAvail().x * 0.5f, 260), false, window_flags);
-				static int item_current_idx = 0;
-				if (ImGui::BeginListBox("##Trains", ImVec2(-FLT_MIN, 100 * ImGui::GetTextLineHeightWithSpacing())))
-				{
-					for (int n = 0; n < IM_ARRAYSIZE(train_name); n++)
-					{
-						bool is_selected = (item_current_idx == n);
-						if (ImGui::Selectable("test", is_selected))
-							item_current_idx = n;
-
-						if (is_selected)
-							ImGui::SetItemDefaultFocus();
-					}
-					ImGui::EndListBox();
+				bool is_selected = (item_current_idx == n);
+				if (ImGui::Selectable("test", is_selected))
+					item_current_idx = n;
+				if (is_selected)
+					ImGui::SetItemDefaultFocus();
 				}
-            	ImGui::EndChild();
+				ImGui::EndListBox();
 			}
+	          	ImGui::EndChild();
+		}
 
 	        ImGui::SameLine();
         	{
-				ImGui::BeginChild("train list2", ImVec2(0, 260), false);
-				const char* items[] = { "train1", "train2", "CCCC", "DDDD", "EEEE", "FFFF", "GGGG", "HHHH", "IIII", "JJJJ", "KKKK", "LLLLLLL", "MMMM", "OOOOOOO" };
-				static int item_current_idx = 0;
-				if (ImGui::BeginListBox("Trains", ImVec2(-FLT_MIN, 50 * ImGui::GetTextLineHeightWithSpacing())))
-				{
-					for (int n = 0; n < IM_ARRAYSIZE(items); n++)
-					{
-						const bool is_selected = (item_current_idx == n);
-						if (ImGui::Selectable(items[n], is_selected))
-							item_current_idx = n;
+			ImGui::BeginChild("train list2", ImVec2(0, 260), false);
+			const char* items[] = { "train1", "train2", "CCCC", "DDDD", "EEEE", "FFFF", "GGGG", "HHHH", "IIII", "JJJJ", "KKKK", "LLLLLLL", "MMMM", "OOOOOOO" };
+			static int item_current_idx = 0;
+			if (ImGui::BeginListBox("Trains", ImVec2(-FLT_MIN, 50 * ImGui::GetTextLineHeightWithSpacing())))
+			{
+				for (int n = 0; n < IM_ARRAYSIZE(items); n++)
+				{	
+					const bool is_selected = (item_current_idx == n);
+					if (ImGui::Selectable(items[n], is_selected))
+						item_current_idx = n;
 
-						if (is_selected)
-							ImGui::SetItemDefaultFocus();
-					}
-					ImGui::EndListBox();
+					if (is_selected)
+						ImGui::SetItemDefaultFocus();
 				}
-            	ImGui::EndChild();
-			}
-			ImGui::End();
+				ImGui::EndListBox();
+			}		
+			ImGui::EndChild();
 		}
+	ImGui::End();
+	}
 
-		if (log_window_active == true)
+	if (log_window_active == true)
+	{
+		int train_logging;
+		ImGui::Begin("Logs!");
+		while (train_logging < trains_to_create)
 		{
-            ImGui::Begin("Logs!");
+			train_logging++;
+			ImGui::Text("Train being loged: ", i);
+			ImGui::Text("train_current = %d", train_current[i]);
+			ImGui::Text("train_left = %d", train_left[i]);
+			ImGui::Text("train_direction = %d", train_direction[i]);
+			ImGui::Text("train_aproximet = %d", train_aproximet[i]);
+			ImGui::Text("train_length = %d", train_length[i]);
+			ImGui::Text("cycle = %d", cycle);
+		}
+		ImGui::End();
+	}
 
-            ImGui::Text("train1_current = %d", train1_current);
-            ImGui::Text("train1_left = %d", train1_left);           
-            ImGui::Text("train1_direction = %d", train1_direction);
-            ImGui::Text("train1_aproximet = %d", train1_aproximet);
-            ImGui::Text("train1_length = %d", train1_length);
-            ImGui::Text("cycle = %d", cycle);
-
-            ImGui::End();
-        }
-		
 
 //////////////////////////////////////////////////////////////////////////////////////
-//																					//
-//																					//
-//								Map window											//
-//																					//
-//																					//
+//	   									    //
+//										    //
+//				Map window					    //
+//		  								    //
+//		  								    //
 //////////////////////////////////////////////////////////////////////////////////////
 
-		if (map_window_active == true)
+if (map_window_active == true)
 		{
 			ImGui::Begin("Map");
-
 	
 			string cycle_read;
 	
@@ -670,25 +667,21 @@ int main(int, char**) {
 			int field_types[16];
 			int map_cycle;
 
-				
-				
-			while (type_cycle < map_size)
-			{
-				// Reads 16 Ints form json file
-				type_cycle++;
-				std::string cycle_read = std::to_string(type_cycle);
-				std::ifstream file("./json/mapdata.json");
-				json map = json::parse(file);
-				field_temp_type = map[cycle_read]["type"];
-				field_temp_type = "type_" + field_temp_type;
-				type[type_cycle] = field_temp_type;
-				//field_types[type_cycle] = std::stoi(field_temp_type);
-			}
+            while (type_cycle < map_size)
+            {
+            // Reads 16 Ints form json file
+            type_cycle++;
+            std::string cycle_read = std::to_string(type_cycle);
+            std::ifstream file("./json/mapdata.json");
+            json map = json::parse(file);
+            field_temp_type = map[cycle_read]["type"];
+            field_temp_type = "type_" + field_temp_type;
+            type[type_cycle] = field_temp_type;
+            //field_types[type_cycle] = std::stoi(field_temp_type);
+        }
 
-
-
-			ImGui::End();
-		}
+        ImGui::End();
+        }
 
         // Rendering
         ImGui::Render();
@@ -698,25 +691,23 @@ int main(int, char**) {
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-		{
-			ImGui::UpdatePlatformWindows();
-			ImGui::RenderPlatformWindowsDefault();
-		}
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+        {
+          ImGui::UpdatePlatformWindows();
+          ImGui::RenderPlatformWindowsDefault();
+        }
 
         glfwSwapBuffers(window);
-	
-    }
 
+        }
 
+        ImGui_ImplOpenGL3_Shutdown();
+        ImGui_ImplGlfw_Shutdown();
+        ImGui::DestroyContext();
 
-	ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+        glfwDestroyWindow(window);
+        glfwTerminate();
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
+        return 0;
 
-    return 0;
-	
 }
