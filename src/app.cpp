@@ -1,5 +1,5 @@
+#include "./database.h"
 #include <fstream>
-#include "../nlohmann/json.hpp"
 #include <iostream>
 #include <math.h>
 #ifdef _WINDOWS
@@ -8,7 +8,6 @@
 #include <unistd.h>
 #define Sleep(x) usleep((x)*1000)
 #endif
-using json = nlohmann::json;
 using namespace std;
 #include "../imgui/imgui.h"
 #include "../backends/imgui_impl_glfw.h"
@@ -21,9 +20,9 @@ using namespace std;
 #define STB_IMAGE_IMPLEMENTATION
 #include "../backends/stb_image.h"
 
+
 // Declares how many Trains should be created
 int trains_to_create = 4;
-
 string train [] = {};
 int train_left [] = {};
 int train_problem_time [] = {};
@@ -39,7 +38,6 @@ float train_speed [] = {};
 int train_saved_speed [] = {};
 bool train_direction [] = {};
 // arays arent  used in code yet.
-
 
 // int and bools for railroad system
 int railroad1_length, railroad2_length;
@@ -264,16 +262,6 @@ void log(int i) {
 }
 
 
-// Used to create / recreate the database
-void rebuild_database(){
-
-	json jsonfile;
-
-	jsonfile["train"] = "train";
-
-	std::ofstream file("data.json");
-	file << std::setw(4) << jsonfile << endl;
-}
 // Creates Problems
 void create_problem(int i) {
 	if (1 + (float)(rand()) / ((float)(RAND_MAX/(2 - 1))) <= 1.5){
@@ -283,7 +271,7 @@ void create_problem(int i) {
 	}
 }
 
-void train_stuff(int i)
+void train_initiation(int i)
 {
 	while(train_aproximet[i] == train_aproximet[i])
 	{
@@ -336,7 +324,8 @@ void train_stuff(int i)
 			}	
 		}
 
-		log(i);
+		//uncomment for logging to console
+		//log(i);
 		
 			
 		global_minute++;
@@ -385,6 +374,8 @@ void train_stuff(int i)
 
 //main function
 int main(int, char**) {
+	loadmap();
+
 	int i = 0;
 	while (i < trains_to_create)
 	{
@@ -405,9 +396,8 @@ int main(int, char**) {
 	
 		if (answer == "y"){
 			cout << "Rebuilding database ..." << endl;
-			rebuild_database();
 		}
-		std::thread x([&i]() { train_stuff(i); });
+		std::thread x([&i]() { train_initiation(i); });
 		x.detach();
 	    cout << "i: " << i << endl;
 	}
@@ -509,7 +499,6 @@ int main(int, char**) {
 	bool train_window_active = false;
 	bool log_window_active = false;
 	bool map_window_active = false;
-	bool grid_test_window_active = false;
 
 	// Main loop
 
@@ -581,10 +570,7 @@ int main(int, char**) {
 			// Reads 16 Ints form json file
 			type_cycle++;
 			std::string cycle_read = std::to_string(type_cycle);
-			std::ifstream file("./json/traindata.json");
-			json train = json::parse(file);
-			train_temp_name = train[cycle_read]["name"];
-			//train_name[type_cycle] = train_temp_name;
+			train_temp_name = train_name[type_cycle];
 		}
        	{
         ImGuiWindowFlags window_flags = ImGuiWindowFlags_HorizontalScrollbar;
@@ -635,7 +621,7 @@ int main(int, char**) {
 		while (train_logging < trains_to_create)
 		{
 			train_logging++;
-			ImGui::Text("Train being loged: ", i);
+			ImGui::Text("Train being logged: ", i);
 			ImGui::Text("train_current = %d", train_current[i]);
 			ImGui::Text("train_left = %d", train_left[i]);
 			ImGui::Text("train_direction = %d", train_direction[i]);
@@ -657,28 +643,8 @@ int main(int, char**) {
 
 if (map_window_active == true)
 		{
-			ImGui::Begin("Map");
-	
-			string cycle_read;
-	
-			int map_size = 16;
-			string field_temp_type;
-			string type[17];
-			int field_types[16];
-			int map_cycle;
-
-            while (type_cycle < map_size)
-            {
-            // Reads 16 Ints form json file
-            type_cycle++;
-            std::string cycle_read = std::to_string(type_cycle);
-            std::ifstream file("./json/mapdata.json");
-            json map = json::parse(file);
-            field_temp_type = map[cycle_read]["type"];
-            field_temp_type = "type_" + field_temp_type;
-            type[type_cycle] = field_temp_type;
-            //field_types[type_cycle] = std::stoi(field_temp_type);
-        }
+		ImGui::Begin("Map");
+        
 
         ImGui::End();
         }

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 project(subsis)
 
-set(IMGUI_DIR ../)
+set(IMGUI_DIR ./)
 
 find_package(glfw3 REQUIRED)
 include_directories(${GLFW_INCLUDE_DIRS})
@@ -10,7 +10,8 @@ link_libraries(${GLFW_LIBRARIES})
 
 set(SOURCES
         src/app.cpp
-        ./imconfig.h
+        ${IMGUI_DIR}/imgui/imconfig.h
+        src/database.cpp
         src/font.ttf
         ${IMGUI_DIR}/imgui/imgui.h
         ${IMGUI_DIR}/imgui/imgui.cpp
