@@ -67,13 +67,13 @@ void loadmap() {
     // load the actual map
     map_offset = namelength + 10;
     int c_width = 0;
-    int c_length = 1;
+    int c_length = 0;
     for (int i = map_offset; i < (width*height)*2+map_offset;)
     {
         if (c_width == width)
         {
             std::cout << "next line" << std::endl;
-            c_width = 1;
+            c_width = 0;
             c_length++;
         }
 
@@ -93,7 +93,6 @@ void loadmap() {
         map[c_width][c_length] = std::stoi(comb_char);
         i++;
         c_width++;
-        std::cout << "width: " << width << std::endl;
 
     }
     // logging the data
