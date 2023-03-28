@@ -15,7 +15,7 @@ using namespace std;
 #if defined(IMGUI_IMPL_OPENGL_ES2)
 #include <GLES2/gl2.h>
 #endif
-#include <GLFW/glfw3.h>
+#include "backends/glfw3.h"
 #include <thread>
 #define STB_IMAGE_IMPLEMENTATION
 #include "../backends/stb_image.h"
