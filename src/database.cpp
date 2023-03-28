@@ -52,9 +52,9 @@ void loadmap() {
     }
     int width = std::stoi(temp_width);
     int height = std::stoi(temp_length);
+    
     // creates the 2d array and allocates memory
     // DO NOT REPLACE with map[width][height]
-
     int** map = new int*[width];
     for (int i = 0; i < width; i++) {
         map[i] = new int[height];

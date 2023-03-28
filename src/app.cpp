@@ -1,3 +1,4 @@
+using namespace std;
 #include "./database.h"
 #include <fstream>
 #include <iostream>
@@ -8,7 +9,6 @@
 #include <unistd.h>
 #define Sleep(x) usleep((x)*1000)
 #endif
-using namespace std;
 #include "../imgui/imgui.h"
 #include "../backends/imgui_impl_glfw.h"
 #include "../backends/imgui_impl_opengl3.h"
@@ -414,13 +414,13 @@ int main(int, char**) {
         return 1;
 
 	// Decide GL+GLSL versions
-#if defined(IMGUI_IMPL_OPENGL_ES2)
+if defined(IMGUI_IMPL_OPENGL_ES2)
 	// GL ES 2.0 + GLSL 100
 	const char* glsl_version = "#version 100";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-#elif defined(__APPLE__)
+elif defined(__APPLE__)
 	// GL 3.2 + GLSL 150
 	const char* glsl_version = "#version 150";
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
