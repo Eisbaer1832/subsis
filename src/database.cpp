@@ -3,9 +3,9 @@
 #include <fstream>
 
 // for testing purpose only, disable to avoid compile error
-int main(){
-    loadmap();
-}
+//int main(){
+//    loadmap();
+//}
 
 // actual function for interpreting
 void loadmap() {
