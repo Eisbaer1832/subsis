@@ -15,7 +15,8 @@ void loadmap() {
     int namelength;
 
     //open file
-    std::ifstream file("../data/maps/test.sub");
+    std::ifstream file("../data/maps/test.sub",  std::ios::in);
+    if (!file) std::cerr << "Can't open input file!";
 
     // get map name height
     file.seekg(0, std::ios::beg);
@@ -34,8 +35,8 @@ void loadmap() {
     }
 
     // get the size of the map
-    std::string temp_width;
-    std::string temp_length;
+    std::string temp_width = "0";
+    std::string temp_length = "0";
     for (int i = 2 + namelength; i < namelength + 10;)
     {
         file.seekg(i, std::ios::beg);
@@ -49,9 +50,9 @@ void loadmap() {
         }
         i++;
     }
-    const int width = std::stoi(temp_width);
-    const int height = std::stoi(temp_length);
-    std::cout << height << std::endl;
+    std::cout << temp_width << std::endl;
+    int width = std::stoi(temp_width);
+    int height = std::stoi(temp_length);
     // creates the 2d array and allocates memory
     // DO NOT REPLACE with map[width][height]
 
@@ -62,15 +63,16 @@ void loadmap() {
             map[i][j] = 0; // initialize each element to 0
         }
     }
+
     // load the actual map
     map_offset = namelength + 10;
     int c_width = 0;
-    int c_length = 0;
+    int c_length = 1;
     for (int i = map_offset; i < (width*height)*2+map_offset;)
     {
-        c_width++;
-        if (c_width > width)
+        if (c_width == width)
         {
+            std::cout << "next line" << std::endl;
             c_width = 1;
             c_length++;
         }
@@ -87,9 +89,12 @@ void loadmap() {
         comb_char.append(1, part_char);
 
         std::cout << std::stoi(comb_char);
-        std::cout << " in line: " << c_length << ", on hoirzontal: " << c_width << std::endl;
+        std::cout << " in line: " << c_length << ", horizontally: " << c_width << std::endl;
         map[c_width][c_length] = std::stoi(comb_char);
         i++;
+        c_width++;
+        std::cout << "width: " << width << std::endl;
+
     }
     // logging the data
     std::cout << "namelength: " << namelength << std::endl;
