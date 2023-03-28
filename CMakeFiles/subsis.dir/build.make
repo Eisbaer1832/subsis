@@ -83,10 +83,24 @@ CMakeFiles/subsis.dir/src/app.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/subsis.dir/src/app.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eisbaer1832/subsis/src/app.cpp -o CMakeFiles/subsis.dir/src/app.cpp.s
 
+CMakeFiles/subsis.dir/src/database.cpp.o: CMakeFiles/subsis.dir/flags.make
+CMakeFiles/subsis.dir/src/database.cpp.o: src/database.cpp
+CMakeFiles/subsis.dir/src/database.cpp.o: CMakeFiles/subsis.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/subsis.dir/src/database.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/subsis.dir/src/database.cpp.o -MF CMakeFiles/subsis.dir/src/database.cpp.o.d -o CMakeFiles/subsis.dir/src/database.cpp.o -c /home/eisbaer1832/subsis/src/database.cpp
+
+CMakeFiles/subsis.dir/src/database.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/subsis.dir/src/database.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eisbaer1832/subsis/src/database.cpp > CMakeFiles/subsis.dir/src/database.cpp.i
+
+CMakeFiles/subsis.dir/src/database.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/subsis.dir/src/database.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eisbaer1832/subsis/src/database.cpp -o CMakeFiles/subsis.dir/src/database.cpp.s
+
 CMakeFiles/subsis.dir/imgui/imgui.cpp.o: CMakeFiles/subsis.dir/flags.make
 CMakeFiles/subsis.dir/imgui/imgui.cpp.o: imgui/imgui.cpp
 CMakeFiles/subsis.dir/imgui/imgui.cpp.o: CMakeFiles/subsis.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/subsis.dir/imgui/imgui.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/subsis.dir/imgui/imgui.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/subsis.dir/imgui/imgui.cpp.o -MF CMakeFiles/subsis.dir/imgui/imgui.cpp.o.d -o CMakeFiles/subsis.dir/imgui/imgui.cpp.o -c /home/eisbaer1832/subsis/imgui/imgui.cpp
 
 CMakeFiles/subsis.dir/imgui/imgui.cpp.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/subsis.dir/imgui/imgui.cpp.s: cmake_force
 CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o: CMakeFiles/subsis.dir/flags.make
 CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o: imgui/imgui_demo.cpp
 CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o: CMakeFiles/subsis.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o -MF CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o.d -o CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o -c /home/eisbaer1832/subsis/imgui/imgui_demo.cpp
 
 CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.s: cmake_force
 CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o: CMakeFiles/subsis.dir/flags.make
 CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o: imgui/imgui_draw.cpp
 CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o: CMakeFiles/subsis.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o -MF CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o.d -o CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o -c /home/eisbaer1832/subsis/imgui/imgui_draw.cpp
 
 CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.s: cmake_force
 CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o: CMakeFiles/subsis.dir/flags.make
 CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o: imgui/imgui_tables.cpp
 CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o: CMakeFiles/subsis.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o -MF CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o.d -o CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o -c /home/eisbaer1832/subsis/imgui/imgui_tables.cpp
 
 CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.s: cmake_force
 CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o: CMakeFiles/subsis.dir/flags.make
 CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o: imgui/imgui_widgets.cpp
 CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o: CMakeFiles/subsis.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o -MF CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o.d -o CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o -c /home/eisbaer1832/subsis/imgui/imgui_widgets.cpp
 
 CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.i: cmake_force
@@ -156,7 +170,7 @@ CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.s: cmake_force
 CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o: CMakeFiles/subsis.dir/flags.make
 CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o: backends/imgui_impl_glfw.cpp
 CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o: CMakeFiles/subsis.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o -MF CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o.d -o CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o -c /home/eisbaer1832/subsis/backends/imgui_impl_glfw.cpp
 
 CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.i: cmake_force
@@ -170,7 +184,7 @@ CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.s: cmake_force
 CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o: CMakeFiles/subsis.dir/flags.make
 CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o: backends/imgui_impl_opengl3.cpp
 CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o: CMakeFiles/subsis.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o -MF CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o.d -o CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o -c /home/eisbaer1832/subsis/backends/imgui_impl_opengl3.cpp
 
 CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.i: cmake_force
@@ -184,6 +198,7 @@ CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.s: cmake_force
 # Object files for target subsis
 subsis_OBJECTS = \
 "CMakeFiles/subsis.dir/src/app.cpp.o" \
+"CMakeFiles/subsis.dir/src/database.cpp.o" \
 "CMakeFiles/subsis.dir/imgui/imgui.cpp.o" \
 "CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o" \
 "CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o" \
@@ -196,6 +211,7 @@ subsis_OBJECTS = \
 subsis_EXTERNAL_OBJECTS =
 
 subsis: CMakeFiles/subsis.dir/src/app.cpp.o
+subsis: CMakeFiles/subsis.dir/src/database.cpp.o
 subsis: CMakeFiles/subsis.dir/imgui/imgui.cpp.o
 subsis: CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o
 subsis: CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o
@@ -206,7 +222,7 @@ subsis: CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o
 subsis: CMakeFiles/subsis.dir/build.make
 subsis: /usr/lib/libglfw.so.3.3
 subsis: CMakeFiles/subsis.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable subsis"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eisbaer1832/subsis/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable subsis"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/subsis.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

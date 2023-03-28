@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o.d"
   "CMakeFiles/subsis.dir/src/app.cpp.o"
   "CMakeFiles/subsis.dir/src/app.cpp.o.d"
+  "CMakeFiles/subsis.dir/src/database.cpp.o"
+  "CMakeFiles/subsis.dir/src/database.cpp.o.d"
   "subsis"
   "subsis.pdb"
 )

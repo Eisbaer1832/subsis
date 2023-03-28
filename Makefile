@@ -321,6 +321,30 @@ src/app.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/subsis.dir/build.make CMakeFiles/subsis.dir/src/app.cpp.s
 .PHONY : src/app.cpp.s
 
+src/database.o: src/database.cpp.o
+.PHONY : src/database.o
+
+# target to build an object file
+src/database.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subsis.dir/build.make CMakeFiles/subsis.dir/src/database.cpp.o
+.PHONY : src/database.cpp.o
+
+src/database.i: src/database.cpp.i
+.PHONY : src/database.i
+
+# target to preprocess a source file
+src/database.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subsis.dir/build.make CMakeFiles/subsis.dir/src/database.cpp.i
+.PHONY : src/database.cpp.i
+
+src/database.s: src/database.cpp.s
+.PHONY : src/database.s
+
+# target to generate assembly for a file
+src/database.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/subsis.dir/build.make CMakeFiles/subsis.dir/src/database.cpp.s
+.PHONY : src/database.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -354,6 +378,9 @@ help:
 	@echo "... src/app.o"
 	@echo "... src/app.i"
 	@echo "... src/app.s"
+	@echo "... src/database.o"
+	@echo "... src/database.i"
+	@echo "... src/database.s"
 .PHONY : help
 
 
