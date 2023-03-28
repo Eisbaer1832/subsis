@@ -50,7 +50,6 @@ void loadmap() {
         }
         i++;
     }
-    std::cout << temp_width << std::endl;
     int width = std::stoi(temp_width);
     int height = std::stoi(temp_length);
     // creates the 2d array and allocates memory
@@ -72,7 +71,6 @@ void loadmap() {
     {
         if (c_width == width)
         {
-            std::cout << "next line" << std::endl;
             c_width = 0;
             c_length++;
         }
@@ -88,8 +86,6 @@ void loadmap() {
         part_char = file.get();
         comb_char.append(1, part_char);
 
-        std::cout << std::stoi(comb_char);
-        std::cout << " in line: " << c_length << ", horizontally: " << c_width << std::endl;
         map[c_width][c_length] = std::stoi(comb_char);
         i++;
         c_width++;
