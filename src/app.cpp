@@ -457,42 +457,7 @@ int main(int, char**) {
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 	// image config
-	int my_image_width = 0;
-	int my_image_height = 0;
-	GLuint type_1 = 0;
-	GLuint type_2 = 0;
-	GLuint type_3 = 0;
-	GLuint type_4 = 0;
-	GLuint type_5 = 0;
-	GLuint type_6 = 0;
-	GLuint type_7 = 0;
-	GLuint type_8 = 0;
-	GLuint type_9 = 0;
-	GLuint type_10 = 0;
-	GLuint type_11 = 0;
-	GLuint type_12 = 0;
-	GLuint type_13 = 0;
-	GLuint type_14 = 0;
-	GLuint type_15 = 0;
-	GLuint type_16 = 0;
 
-	//bool ret = LoadTextureFromFile("../type_1.jpg", &type_1, &my_image_width, &my_image_height);
-	//bool ret2 = LoadTextureFromFile("../type_2.jpg", &type_2, &my_image_width, &my_image_height);
-	//bool ret3 = LoadTextureFromFile("../type_3.jpg", &type_3, &my_image_width, &my_image_height);
-	//bool ret4 = LoadTextureFromFile("../type_4.jpg", &type_4, &my_image_width, &my_image_height);
-	//bool ret5 = LoadTextureFromFile("../type_5.jpg", &type_5, &my_image_width, &my_image_height);
-	//bool ret6 = LoadTextureFromFile("../type_6.jpg", &type_6, &my_image_width, &my_image_height);
-	//bool ret7 = LoadTextureFromFile("../type_7.jpg", &type_7, &my_image_width, &my_image_height);
-	//bool ret8 = LoadTextureFromFile("../type_8.jpg", &type_8, &my_image_width, &my_image_height);
-	//bool ret9 = LoadTextureFromFile("../type_9.jpg", &type_9, &my_image_width, &my_image_height);
-	//bool ret10 = LoadTextureFromFile("../type_10.jpg", &type_10, &my_image_width, &my_image_height);
-	//bool ret11 = LoadTextureFromFile("../type_11.jpg", &type_11, &my_image_width, &my_image_height);
-	//bool ret12 = LoadTextureFromFile("../type_12.jpg", &type_12, &my_image_width, &my_image_height);	
-	//bool ret13 = LoadTextureFromFile("../type_13.jpg", &type_13, &my_image_width, &my_image_height);
-	//bool ret14 = LoadTextureFromFile("../type_14.jpg", &type_14, &my_image_width, &my_image_height);
-	//bool ret15 = LoadTextureFromFile("../type_15.jpg", &type_15, &my_image_width, &my_image_height);
-	//bool ret16 = LoadTextureFromFile("../type_16.jpg", &type_16, &my_image_width, &my_image_height);
-	
 	
 	bool train_window_active = false;
 	bool log_window_active = false;
@@ -655,11 +620,7 @@ if (map_window_active == true)
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-        {
-          ImGui::UpdatePlatformWindows();
-          ImGui::RenderPlatformWindowsDefault();
-        }
+
 
         glfwSwapBuffers(window);
 

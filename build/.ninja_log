@@ -1,0 +1,10 @@
+# ninja log v5
+1	196	1680349668329681019	CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o	486fb93fbca2848e
+1	203	1680349668336347594	CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o	cefd6c0a515a9a63
+1	320	1680349668453012657	CMakeFiles/subsis.dir/src/database.cpp.o	67ec99aae44ad230
+1	952	1680349669083003998	CMakeFiles/subsis.dir/backends/imgui_demo.cpp.o	e46a0af055ec04e0
+1	1300	1680349669432999187	CMakeFiles/subsis.dir/backends/imgui_tables.cpp.o	154f58a291091cf5
+1	1624	1680349669756328076	CMakeFiles/subsis.dir/backends/imgui_draw.cpp.o	97b9a4694401a582
+1	1639	1680349669769661226	CMakeFiles/subsis.dir/backends/imgui_widgets.cpp.o	6dd667cbb4d13c66
+1	2037	1680349670166322440	CMakeFiles/subsis.dir/backends/imgui.cpp.o	57a3e27a12d7f5fc
+1	923	1680349823907531861	CMakeFiles/subsis.dir/src/app.cpp.o	48ea86590688d3bc
