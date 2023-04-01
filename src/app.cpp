@@ -1,5 +1,4 @@
-using namespace std;
-#include "./database.h"
+ #include "./database.h"
 #include <fstream>
 #include <iostream>
 #include <math.h>
@@ -9,7 +8,7 @@ using namespace std;
 #include <unistd.h>
 #define Sleep(x) usleep((x)*1000)
 #endif
-#include "../imgui/imgui.h"
+#include "../backends/imgui.h"
 #include "../backends/imgui_impl_glfw.h"
 #include "../backends/imgui_impl_opengl3.h"
 #if defined(IMGUI_IMPL_OPENGL_ES2)
@@ -19,6 +18,7 @@ using namespace std;
 #include <thread>
 #define STB_IMAGE_IMPLEMENTATION
 #include "../backends/stb_image.h"
+using namespace std;
 
 
 // Declares how many Trains should be created
@@ -245,8 +245,6 @@ void best_option(int i) {
 void railroad_init() {
 	railroad1_length = 5000;
 	railroad2_length = 3000;
-	int railroad1_crossing_2 = 2300;
-	int railroad2_crossing_1 = 300;
 }
 
 

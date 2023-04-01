@@ -14,15 +14,15 @@ link_libraries(${GLFW_LIBRARIES})
 
 set(SOURCES
         src/app.cpp
-        ${IMGUI_DIR}/imgui/imconfig.h
+        ${IMGUI_DIR}/backends/imconfig.h
         src/database.cpp
         src/font.ttf
-        ${IMGUI_DIR}/imgui/imgui.h
-        ${IMGUI_DIR}/imgui/imgui.cpp
-        ${IMGUI_DIR}/imgui/imgui_demo.cpp
-        ${IMGUI_DIR}/imgui/imgui_draw.cpp
-        ${IMGUI_DIR}/imgui/imgui_tables.cpp
-        ${IMGUI_DIR}/imgui/imgui_widgets.cpp
+        ${IMGUI_DIR}/backends/imgui.h
+        ${IMGUI_DIR}/backends/imgui.cpp
+        ${IMGUI_DIR}/backends/imgui_demo.cpp
+        ${IMGUI_DIR}/backends/imgui_draw.cpp
+        ${IMGUI_DIR}/backends/imgui_tables.cpp
+        ${IMGUI_DIR}/backends/imgui_widgets.cpp
         ${IMGUI_DIR}/backends/imgui_impl_glfw.cpp
         ${IMGUI_DIR}/backends/imgui_impl_opengl3.cpp
         )
