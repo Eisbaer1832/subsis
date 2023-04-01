@@ -1,11 +1,5 @@
 # ninja log v5
-1	177	1679932411123697684	CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o	449103c8382b9dfd
-1	267	1680035586779568762	CMakeFiles/subsis.dir/src/database.cpp.o	eb13aae2d3006ba4
-1	201	1679932411147030748	CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o	c5b9d653768cc4af
-1	1466	1679932412410349521	CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o	e09630d08ba817be
-2	1007	1680036384796628740	CMakeFiles/subsis.dir/src/app.cpp.o	fb317f21b4ff547a
-1	963	1679932411910355280	CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o	e9eb1132fb175abe
-1	1590	1679932412533681434	CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o	ad2feac584b0320
-1	1170	1679932412117019565	CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o	3a5b37f812a65a66
-1	2359	1679932413303672575	CMakeFiles/subsis.dir/imgui/imgui.cpp.o	fdccbc93a5e23eb
-1007	1156	1680036384946627789	subsis	5d0d63ca7966c926
+1	130	1680348491102094059	CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o	439a063b06a6de2c
+1	169	1680348491142093480	CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o	1bf790018868dea8
+0	273	1680348491245425317	CMakeFiles/subsis.dir/src/database.cpp.o	a39ccb405736e545
+0	489	1680348491458755561	CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o	3937f95ee68319a7

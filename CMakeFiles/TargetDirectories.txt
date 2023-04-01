@@ -1,3 +1,0 @@
-/home/eisbaer1832/subsis/CMakeFiles/subsis.dir
-/home/eisbaer1832/subsis/CMakeFiles/edit_cache.dir
-/home/eisbaer1832/subsis/CMakeFiles/rebuild_cache.dir

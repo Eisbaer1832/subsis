@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /home/eisbaer1832/subsis/build/
+cmake_ninja_workdir = /home/eisbaer1832/projects/subsis/build/
 # =============================================================================
 # Object build statements for EXECUTABLE target subsis
 
@@ -49,66 +49,66 @@ cmake_ninja_workdir = /home/eisbaer1832/subsis/build/
 
 build cmake_object_order_depends_target_subsis: phony || CMakeFiles/subsis.dir
 
-build CMakeFiles/subsis.dir/src/app.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/subsis/src/app.cpp || cmake_object_order_depends_target_subsis
+build CMakeFiles/subsis.dir/src/app.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/projects/subsis/src/app.cpp || cmake_object_order_depends_target_subsis
   DEP_FILE = CMakeFiles/subsis.dir/src/app.cpp.o.d
   FLAGS = -g -Wall -Wformat -g -std=gnu++11
-  INCLUDES = -I/home/eisbaer1832/subsis/. -I/home/eisbaer1832/subsis/glfw
+  INCLUDES = -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
   OBJECT_DIR = CMakeFiles/subsis.dir
   OBJECT_FILE_DIR = CMakeFiles/subsis.dir/src
 
-build CMakeFiles/subsis.dir/src/database.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/subsis/src/database.cpp || cmake_object_order_depends_target_subsis
+build CMakeFiles/subsis.dir/src/database.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/projects/subsis/src/database.cpp || cmake_object_order_depends_target_subsis
   DEP_FILE = CMakeFiles/subsis.dir/src/database.cpp.o.d
   FLAGS = -g -Wall -Wformat -g -std=gnu++11
-  INCLUDES = -I/home/eisbaer1832/subsis/. -I/home/eisbaer1832/subsis/glfw
+  INCLUDES = -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
   OBJECT_DIR = CMakeFiles/subsis.dir
   OBJECT_FILE_DIR = CMakeFiles/subsis.dir/src
 
-build CMakeFiles/subsis.dir/imgui/imgui.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/subsis/imgui/imgui.cpp || cmake_object_order_depends_target_subsis
+build CMakeFiles/subsis.dir/imgui/imgui.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/projects/subsis/imgui/imgui.cpp || cmake_object_order_depends_target_subsis
   DEP_FILE = CMakeFiles/subsis.dir/imgui/imgui.cpp.o.d
   FLAGS = -g -Wall -Wformat -g -std=gnu++11
-  INCLUDES = -I/home/eisbaer1832/subsis/. -I/home/eisbaer1832/subsis/glfw
+  INCLUDES = -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
   OBJECT_DIR = CMakeFiles/subsis.dir
   OBJECT_FILE_DIR = CMakeFiles/subsis.dir/imgui
 
-build CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/subsis/imgui/imgui_demo.cpp || cmake_object_order_depends_target_subsis
+build CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/projects/subsis/imgui/imgui_demo.cpp || cmake_object_order_depends_target_subsis
   DEP_FILE = CMakeFiles/subsis.dir/imgui/imgui_demo.cpp.o.d
   FLAGS = -g -Wall -Wformat -g -std=gnu++11
-  INCLUDES = -I/home/eisbaer1832/subsis/. -I/home/eisbaer1832/subsis/glfw
+  INCLUDES = -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
   OBJECT_DIR = CMakeFiles/subsis.dir
   OBJECT_FILE_DIR = CMakeFiles/subsis.dir/imgui
 
-build CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/subsis/imgui/imgui_draw.cpp || cmake_object_order_depends_target_subsis
+build CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/projects/subsis/imgui/imgui_draw.cpp || cmake_object_order_depends_target_subsis
   DEP_FILE = CMakeFiles/subsis.dir/imgui/imgui_draw.cpp.o.d
   FLAGS = -g -Wall -Wformat -g -std=gnu++11
-  INCLUDES = -I/home/eisbaer1832/subsis/. -I/home/eisbaer1832/subsis/glfw
+  INCLUDES = -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
   OBJECT_DIR = CMakeFiles/subsis.dir
   OBJECT_FILE_DIR = CMakeFiles/subsis.dir/imgui
 
-build CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/subsis/imgui/imgui_tables.cpp || cmake_object_order_depends_target_subsis
+build CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/projects/subsis/imgui/imgui_tables.cpp || cmake_object_order_depends_target_subsis
   DEP_FILE = CMakeFiles/subsis.dir/imgui/imgui_tables.cpp.o.d
   FLAGS = -g -Wall -Wformat -g -std=gnu++11
-  INCLUDES = -I/home/eisbaer1832/subsis/. -I/home/eisbaer1832/subsis/glfw
+  INCLUDES = -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
   OBJECT_DIR = CMakeFiles/subsis.dir
   OBJECT_FILE_DIR = CMakeFiles/subsis.dir/imgui
 
-build CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/subsis/imgui/imgui_widgets.cpp || cmake_object_order_depends_target_subsis
+build CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/projects/subsis/imgui/imgui_widgets.cpp || cmake_object_order_depends_target_subsis
   DEP_FILE = CMakeFiles/subsis.dir/imgui/imgui_widgets.cpp.o.d
   FLAGS = -g -Wall -Wformat -g -std=gnu++11
-  INCLUDES = -I/home/eisbaer1832/subsis/. -I/home/eisbaer1832/subsis/glfw
+  INCLUDES = -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
   OBJECT_DIR = CMakeFiles/subsis.dir
   OBJECT_FILE_DIR = CMakeFiles/subsis.dir/imgui
 
-build CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/subsis/backends/imgui_impl_glfw.cpp || cmake_object_order_depends_target_subsis
+build CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/projects/subsis/backends/imgui_impl_glfw.cpp || cmake_object_order_depends_target_subsis
   DEP_FILE = CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o.d
   FLAGS = -g -Wall -Wformat -g -std=gnu++11
-  INCLUDES = -I/home/eisbaer1832/subsis/. -I/home/eisbaer1832/subsis/glfw
+  INCLUDES = -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
   OBJECT_DIR = CMakeFiles/subsis.dir
   OBJECT_FILE_DIR = CMakeFiles/subsis.dir/backends
 
-build CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/subsis/backends/imgui_impl_opengl3.cpp || cmake_object_order_depends_target_subsis
+build CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o: CXX_COMPILER__subsis_unscanned_Debug /home/eisbaer1832/projects/subsis/backends/imgui_impl_opengl3.cpp || cmake_object_order_depends_target_subsis
   DEP_FILE = CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o.d
   FLAGS = -g -Wall -Wformat -g -std=gnu++11
-  INCLUDES = -I/home/eisbaer1832/subsis/. -I/home/eisbaer1832/subsis/glfw
+  INCLUDES = -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
   OBJECT_DIR = CMakeFiles/subsis.dir
   OBJECT_FILE_DIR = CMakeFiles/subsis.dir/backends
 
@@ -135,7 +135,7 @@ build subsis: CXX_EXECUTABLE_LINKER__subsis_Debug CMakeFiles/subsis.dir/src/app.
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/eisbaer1832/subsis/build && /usr/bin/ccmake -S/home/eisbaer1832/subsis -B/home/eisbaer1832/subsis/build
+  COMMAND = cd /home/eisbaer1832/projects/subsis/build && /usr/bin/ccmake -S/home/eisbaer1832/projects/subsis -B/home/eisbaer1832/projects/subsis/build
   DESC = Running CMake cache editor...
   pool = console
   restat = 1
@@ -147,7 +147,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/eisbaer1832/subsis/build && /usr/bin/cmake --regenerate-during-build -S/home/eisbaer1832/subsis -B/home/eisbaer1832/subsis/build
+  COMMAND = cd /home/eisbaer1832/projects/subsis/build && /usr/bin/cmake --regenerate-during-build -S/home/eisbaer1832/projects/subsis -B/home/eisbaer1832/projects/subsis/build
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -163,7 +163,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /home/eisbaer1832/subsis/build
+# Folder: /home/eisbaer1832/projects/subsis/build
 
 build all: phony subsis
 
@@ -179,14 +179,14 @@ build all: phony subsis
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/eisbaer1832/subsis/CMakeLists.txt /usr/lib/cmake/glfw3/glfw3Config.cmake /usr/lib/cmake/glfw3/glfw3ConfigVersion.cmake /usr/lib/cmake/glfw3/glfw3Targets-noconfig.cmake /usr/lib/cmake/glfw3/glfw3Targets.cmake /usr/share/cmake/Modules/CMakeCInformation.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/GNU-C.cmake /usr/share/cmake/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake/Modules/FindPackageMessage.cmake /usr/share/cmake/Modules/FindPkgConfig.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.26.1/CMakeCCompiler.cmake CMakeFiles/3.26.1/CMakeCXXCompiler.cmake CMakeFiles/3.26.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/eisbaer1832/projects/subsis/CMakeLists.txt /usr/lib/cmake/glfw3/glfw3Config.cmake /usr/lib/cmake/glfw3/glfw3ConfigVersion.cmake /usr/lib/cmake/glfw3/glfw3Targets-noconfig.cmake /usr/lib/cmake/glfw3/glfw3Targets.cmake /usr/share/cmake/Modules/CMakeCInformation.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/Clang-C.cmake /usr/share/cmake/Modules/Compiler/Clang-CXX.cmake /usr/share/cmake/Modules/Compiler/Clang.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake/Modules/FindPackageMessage.cmake /usr/share/cmake/Modules/FindPkgConfig.cmake /usr/share/cmake/Modules/Platform/Linux-Clang-C.cmake /usr/share/cmake/Modules/Platform/Linux-Clang-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.26.2/CMakeCCompiler.cmake CMakeFiles/3.26.2/CMakeCXXCompiler.cmake CMakeFiles/3.26.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/eisbaer1832/subsis/CMakeLists.txt /usr/lib/cmake/glfw3/glfw3Config.cmake /usr/lib/cmake/glfw3/glfw3ConfigVersion.cmake /usr/lib/cmake/glfw3/glfw3Targets-noconfig.cmake /usr/lib/cmake/glfw3/glfw3Targets.cmake /usr/share/cmake/Modules/CMakeCInformation.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/GNU-C.cmake /usr/share/cmake/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake/Modules/FindPackageMessage.cmake /usr/share/cmake/Modules/FindPkgConfig.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.26.1/CMakeCCompiler.cmake CMakeFiles/3.26.1/CMakeCXXCompiler.cmake CMakeFiles/3.26.1/CMakeSystem.cmake: phony
+build /home/eisbaer1832/projects/subsis/CMakeLists.txt /usr/lib/cmake/glfw3/glfw3Config.cmake /usr/lib/cmake/glfw3/glfw3ConfigVersion.cmake /usr/lib/cmake/glfw3/glfw3Targets-noconfig.cmake /usr/lib/cmake/glfw3/glfw3Targets.cmake /usr/share/cmake/Modules/CMakeCInformation.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/Clang-C.cmake /usr/share/cmake/Modules/Compiler/Clang-CXX.cmake /usr/share/cmake/Modules/Compiler/Clang.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake/Modules/FindPackageMessage.cmake /usr/share/cmake/Modules/FindPkgConfig.cmake /usr/share/cmake/Modules/Platform/Linux-Clang-C.cmake /usr/share/cmake/Modules/Platform/Linux-Clang-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.26.2/CMakeCCompiler.cmake CMakeFiles/3.26.2/CMakeCXXCompiler.cmake CMakeFiles/3.26.2/CMakeSystem.cmake: phony
 
 
 #############################################
