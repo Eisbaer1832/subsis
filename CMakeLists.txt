@@ -3,14 +3,17 @@ cmake_minimum_required(VERSION 3.0)
 project(subsis)
 
 set(IMGUI_DIR ./)
-
+set(glfw_dir ..)
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/modules")
+find_library(GLFW glfw3 PATHS "")
+include_directories(
+    "$glfw_dir/include"
+    )
 
-find_package(glfw3 REQUIRED)
-include_directories(${GLFW_INCLUDE_DIRS})
+
+include_directories(${glfw_dir})
 include_directories(src/data/)
 link_libraries(${GLFW_LIBRARIES})
 
@@ -58,4 +61,4 @@ endif()
 ##---------------------------------------------------------------------
 add_executable(subsis ${SOURCES})
 target_include_directories(subsis PRIVATE ${IMGUI_DIR} glfw)
-target_link_libraries(subsis ${LIBS} -lGL -lGLU -lGLEW -lglfw)
+target_link_libraries(subsis ${LIBS} -lGL -lGLU -lGLEW -lglfw ${GLFW})

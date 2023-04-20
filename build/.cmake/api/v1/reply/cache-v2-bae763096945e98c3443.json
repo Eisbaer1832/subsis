@@ -1138,6 +1138,18 @@
 			"value" : "[/usr/bin/pkg-config][v1.8.1()]"
 		},
 		{
+			"name" : "GLFW",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "GLFW-NOTFOUND"
+		},
+		{
 			"name" : "GLFW_BUILD_DOCS",
 			"properties" : 
 			[
