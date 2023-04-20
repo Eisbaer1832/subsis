@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.0"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "subsis::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-subsis-73d4fc42ff500177cb63.json",
+					"jsonFile" : "target-subsis-Debug-219aa9b6fa18d372d5f6.json",
 					"name" : "subsis",
 					"projectIndex" : 0
 				}
@@ -49,7 +49,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/eisbaer1832/projects/subsis",
+		"build" : "/home/eisbaer1832/projects/subsis/build",
 		"source" : "/home/eisbaer1832/projects/subsis"
 	},
 	"version" : 
