@@ -10,9 +10,16 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 find_package(glfw3 REQUIRED)
 include_directories(${GLFW_INCLUDE_DIRS})
+include_directories(src/data/)
 link_libraries(${GLFW_LIBRARIES})
 
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+
 set(SOURCES
+        src/data/maps/test.sub
         src/app.cpp
         ${IMGUI_DIR}/backends/imconfig.h
         src/database.cpp

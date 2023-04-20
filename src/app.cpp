@@ -1,4 +1,4 @@
- #include "./database.h"
+#include "./database.h"
 #include <fstream>
 #include <iostream>
 #include <math.h>
@@ -69,6 +69,23 @@ int global_minute = 0;
 string global_string_hour = "00";
 string global_string_minute = "00";
 string global_clock = "00:00";
+
+const int ROWS = 10;
+const int COLUMNS = 10;
+
+int grid[ROWS][COLUMNS] = {
+	{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	{11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
+	{21, 22, 23, 24, 25, 26, 27, 28, 29, 30},
+	{31, 32, 33, 34, 35, 36, 37, 38, 39, 40},
+	{41, 42, 43, 44, 45, 46, 47, 48, 49, 50},
+	{51, 52, 53, 54, 55, 56, 57, 58, 59, 60},
+	{61, 62, 63, 64, 65, 66, 67, 68, 69, 70},
+	{71, 72, 73, 74, 75, 76, 77, 78, 79, 80},
+	{81, 82, 83, 84, 85, 86, 87, 88, 89, 90},
+	{91, 92, 93, 94, 95, 96, 97, 98, 99, 100}
+};
+
 
 //////////////////////////////////////////////////////////////////////////////////////
 //																					//
@@ -207,6 +224,8 @@ void SetupImGuiStyle()
 //																					//
 //																					//
 //////////////////////////////////////////////////////////////////////////////////////
+
+
 
 // function if train is too late 
 void finished(int chosen_train) {
@@ -372,7 +391,6 @@ void train_initiation(int i)
 
 //main function
 int main(int, char**) {
-	loadmap();
 
 	int i = 0;
 	while (i < trains_to_create)
@@ -494,8 +512,15 @@ int main(int, char**) {
 				{
 					log_window_active = false;
 				}else{
+        			ImGui::SameLine(ImGui::GetWindowWidth()-70);
+					log_window_active = true;
+				}
+			}
+
+								
 			if (ImGui::Button("Toggle Map"))
 			{
+				loadmap();
 				if (map_window_active == true)
 				{
 					map_window_active = false;
@@ -503,13 +528,9 @@ int main(int, char**) {
 					map_window_active = true;
 				}
 			}
-        ImGui::SameLine(ImGui::GetWindowWidth()-70);
-					log_window_active = true;
-				}
-			}
 
-        ImGui::AlignTextToFramePadding();
-        ImGui::Text(menu_time.c_str());
+    ImGui::AlignTextToFramePadding();
+    ImGui::Text(menu_time.c_str());
 	ImGui::EndMainMenuBar();
 		
 //////////////////////////////////////////////////////////////////////////////////////
@@ -594,22 +615,34 @@ int main(int, char**) {
 		ImGui::End();
 	}
 
-
-//////////////////////////////////////////////////////////////////////////////////////
-//	   									    //
-//										    //
-//				Map window					    //
-//		  								    //
-//		  								    //
-//////////////////////////////////////////////////////////////////////////////////////
-
-if (map_window_active == true)
+// ____________ 
+//< Map Window >
+// ------------ 
+//        \   ^__^
+//         \  (oo)\_______
+//            (__)\       )\/\
+//                ||----w |
+//                ||     ||
+//		  
+		if (map_window_active == true)
 		{
-		ImGui::Begin("Map");
-        
-
-        ImGui::End();
-        }
+//			width;
+			cout << width << endl;
+			ImGui::Begin("Grid Window", NULL);
+			ImGui::Columns(4, NULL);
+			ImGui::Separator();
+			char name[16];
+			for (int i = 0; i < 16; i++)
+			{
+				if (i > 0 && i%4 == 0) ImGui:: Separator ();
+				sprintf(name, "%d", i);
+				ImGui::Button(name, ImVec2(ImGui::GetIO().DisplaySize.x/4, ImGui::GetIO().DisplaySize.y/4));
+				ImGui::NextColumn();
+			}
+			ImGui::Columns (1);
+			ImGui::Separator ();
+			ImGui::End();
+		}
 
         // Rendering
         ImGui::Render();
@@ -633,5 +666,4 @@ if (map_window_active == true)
         glfwTerminate();
 
         return 0;
-
 }

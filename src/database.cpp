@@ -9,13 +9,16 @@
 
 // actual function for interpreting
 void loadmap() {
+
     // variables red from file
+    int width;
+    int height;
     int map_offset;
     std::string name;
     int namelength;
 
     //open file
-    std::ifstream file("../data/maps/test.sub",  std::ios::in);
+    std::ifstream file("./src/data/maps/test.sub",  std::ios::in);
     if (!file) std::cerr << "Can't open input file!";
 
     // get map name height
@@ -50,8 +53,8 @@ void loadmap() {
         }
         i++;
     }
-    int width = std::stoi(temp_width);
-    int height = std::stoi(temp_length);
+    width = std::stoi(temp_width);
+    height = std::stoi(temp_length);
     
     // creates the 2d array and allocates memory
     // DO NOT REPLACE with map[width][height]
@@ -67,7 +70,7 @@ void loadmap() {
     map_offset = namelength + 10;
     int c_width = 0;
     int c_length = 0;
-    for (int i = map_offset; i < (width*height)*2+map_offset;)
+    for (int i = map_offset; i < width*height*2+map_offset;)
     {
         if (c_width == width)
         {
@@ -95,11 +98,11 @@ void loadmap() {
     std::cout << "namelength: " << namelength << std::endl;
     std::cout << "name: " << name << std::endl;
     std::cout << "Map size: " << width << " : " << height << std::endl;
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            std::cout << map[i][j] << " ";
-        }
-        std::cout << std::endl;
+    for(int i = 0; i < width; i++) {
+    for(int j = 0; j < height; j++) {
+        std::cout << map[i][j] << " ";
+    }
+    std::cout << std::endl;
     }
     file.close();
 

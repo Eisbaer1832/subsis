@@ -3,4 +3,7 @@
 
 void loadmap();
 
+extern int width;
+extern int height;
+
 #endif

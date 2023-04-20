@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
+CXX_INCLUDES = -I/home/eisbaer1832/projects/subsis/src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw
 
 CXX_FLAGS =   -g -Wall -Wformat -std=gnu++11
 
