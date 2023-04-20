@@ -27,25 +27,25 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 61,
+				"line" : 59,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 63,
+				"line" : 61,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 16,
+				"line" : 14,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 62,
+				"line" : 60,
 				"parent" : 0
 			}
 		]
@@ -111,7 +111,7 @@
 				"role" : "flags"
 			},
 			{
-				"backtrace" : 1,
+				"backtrace" : 2,
 				"fragment" : "/usr/lib/libglfw.so.3.3",
 				"role" : "libraries"
 			},
@@ -133,6 +133,11 @@
 			{
 				"backtrace" : 2,
 				"fragment" : "-lglfw",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-std=c++11",
 				"role" : "libraries"
 			}
 		],
