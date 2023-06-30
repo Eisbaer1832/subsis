@@ -18,8 +18,8 @@ void loadmap() {
     int namelength;
 
     //open file
-    std::ifstream file("./src/data/maps/test.sub",  std::ios::in);
-    if (!file) std::cerr << "Can't open input file!";
+    std::ifstream file("./data/maps/test.sub",  std::ios::in);
+    if (!file) std::cerr << "Can't open input file!" << std::endl;
 
     // get map name height
     file.seekg(0, std::ios::beg);

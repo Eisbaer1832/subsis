@@ -19,7 +19,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../backends/stb_image.h"
 using namespace std;
-
+#include <cstdlib>
 
 // Declares how many Trains should be created
 int trains_to_create = 4;
@@ -37,7 +37,6 @@ int train_time [] = {};
 float train_speed [] = {};
 int train_saved_speed [] = {};
 bool train_direction [] = {};
-// arays arent  used in code yet.
 
 // int and bools for railroad system
 int railroad1_length, railroad2_length;
@@ -218,11 +217,11 @@ void SetupImGuiStyle()
 	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.1450980454683304, 0.1450980454683304, 0.1490196138620377, 1.0);
 }
 //////////////////////////////////////////////////////////////////////////////////////
-//																					//
-//																					//
-//						Actual code for train stuff									//
-//																					//
-//																					//
+//										   ///
+//										    //
+//				Actual code for train stuff	   		    //
+//										    //
+//										    //
 //////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -624,25 +623,23 @@ int main(int, char**) {
 //                ||----w |
 //                ||     ||
 //		  
-		if (map_window_active == true)
-		{
-//			width;
-			cout << width << endl;
-			ImGui::Begin("Grid Window", NULL);
-			ImGui::Columns(4, NULL);
-			ImGui::Separator();
-			char name[16];
-			for (int i = 0; i < 16; i++)
-			{
-				if (i > 0 && i%4 == 0) ImGui:: Separator ();
-				sprintf(name, "%d", i);
-				ImGui::Button(name, ImVec2(ImGui::GetIO().DisplaySize.x/4, ImGui::GetIO().DisplaySize.y/4));
-				ImGui::NextColumn();
-			}
-			ImGui::Columns (1);
-			ImGui::Separator ();
-			ImGui::End();
-		}
+	if (map_window_active == true)
+	{
+	    ImGui::Begin("Grid Window", NULL);
+	    ImGui::Columns(4, NULL);
+	    ImGui::Separator();
+	    char name[16];
+	    for (int i = 0; i < 16; i++)
+	    {
+	        if (i > 0 && i%4 == 0) ImGui:: Separator ();
+	        sprintf(name, "%d", i);
+	        ImGui::Button(name, ImVec2(ImGui::GetIO().DisplaySize.x/4, ImGui::GetIO().DisplaySize.y/4));
+	        ImGui::NextColumn();
+	    }
+	    ImGui::Columns (1);
+	    ImGui::Separator ();
+	    ImGui::End();
+	}
 
         // Rendering
         ImGui::Render();
