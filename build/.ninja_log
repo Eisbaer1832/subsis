@@ -1,0 +1,26 @@
+# ninja log v5
+3	189	1688844181152202366	CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o	608bd9723f9e83db
+1	284	1688844181245542369	CMakeFiles/subsis.dir/src/database.cpp.o	126e5d9f5b3c8d48
+2	199	1688844181162203081	CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o	154deb470b44e065
+1	1101	1688844182065600971	CMakeFiles/subsis.dir/src/app.cpp.o	f81199407aaee142
+1	852	1688844181815583104	CMakeFiles/subsis.dir/backends/imgui_demo.cpp.o	1d9d7dbe9963a7c1
+1	1443	1688844182405625277	CMakeFiles/subsis.dir/backends/imgui_draw.cpp.o	b61abff90e3dfc88
+1	2623	1688844183582376076	CMakeFiles/subsis.dir/backends/imgui.cpp.o	11c2788b40a49ae8
+1	1164	1688844182125605261	CMakeFiles/subsis.dir/backends/imgui_tables.cpp.o	75387a6596a5e732
+2623	2767	1688844183729053232	subsis	94b3239acfe14ba0
+2	1809	1688844182768984584	CMakeFiles/subsis.dir/backends/imgui_widgets.cpp.o	a6ac73025e6a4b7f
+2	173	1688844549750315921	CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o	3ab66bb2e99a2c6f
+2	239	1688844549816983141	CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o	3bbe901bb412cbfa
+1	315	1688844549893650444	CMakeFiles/subsis.dir/src/database.cpp.o	51e88aef2eca6904
+2	792	1688844550370321134	CMakeFiles/subsis.dir/backends/imgui_demo.cpp.o	643fcb716c5b565d
+1	1061	1688844550636990061	CMakeFiles/subsis.dir/src/app.cpp.o	c58bb6873845307b
+2	1263	1688844550840325119	CMakeFiles/subsis.dir/backends/imgui_tables.cpp.o	3a68d8b4ece6b82c
+2	1462	1688844551036993458	CMakeFiles/subsis.dir/backends/imgui_draw.cpp.o	c0ae44f9fdfb02a2
+2	1886	1688844551463663815	CMakeFiles/subsis.dir/backends/imgui_widgets.cpp.o	890683431f5d6dfe
+1	2692	1688844552267004143	CMakeFiles/subsis.dir/backends/imgui.cpp.o	e55b1812ab90a964
+2692	2833	1688844552410338741	subsis	94b3239acfe14ba0
+2	228	1688844580637319210	CMakeFiles/subsis.dir/src/database.cpp.o	51e88aef2eca6904
+2	947	1688844581357328860	CMakeFiles/subsis.dir/src/app.cpp.o	c58bb6873845307b
+947	1101	1688844581510664259	subsis	94b3239acfe14ba0
+2	919	1688844651321943396	CMakeFiles/subsis.dir/src/app.cpp.o	c58bb6873845307b
+919	1037	1688844651441946129	subsis	94b3239acfe14ba0

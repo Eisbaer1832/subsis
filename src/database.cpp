@@ -2,6 +2,18 @@
 #include <iostream>
 #include <fstream>
 
+// variables red from file
+int width;
+int height;
+int map_offset;
+std::string name;
+int namelength;
+
+// creates the 2d array
+// DO NOT REPLACE with map[width][height]
+int** map = new int*[width];
+
+
 // for testing purpose only, disable to avoid compile error
 //int main(){
 //    loadmap();
@@ -10,12 +22,13 @@
 // actual function for interpreting
 void loadmap() {
 
-    // variables red from file
-    int width;
-    int height;
-    int map_offset;
-    std::string name;
-    int namelength;
+    // allocates memory for 2D array
+    for (int i = 0; i < width; i++) {
+        map[i] = new int[height];
+        for (int j = 0; j < height; j++) {
+            map[i][j] = 0; // initialize each element to 0
+        }
+    }
 
     //open file
     std::ifstream file("./data/maps/test.sub",  std::ios::in);
@@ -56,15 +69,7 @@ void loadmap() {
     width = std::stoi(temp_width);
     height = std::stoi(temp_length);
     
-    // creates the 2d array and allocates memory
-    // DO NOT REPLACE with map[width][height]
-    int** map = new int*[width];
-    for (int i = 0; i < width; i++) {
-        map[i] = new int[height];
-        for (int j = 0; j < height; j++) {
-            map[i][j] = 0; // initialize each element to 0
-        }
-    }
+
 
     // load the actual map
     map_offset = namelength + 10;

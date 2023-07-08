@@ -10,11 +10,10 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 find_package(glfw3 REQUIRED)
 include_directories(${GLFW_INCLUDE_DIRS})
-include_directories(src/data/)
+include_directories(./src/data/)
 link_libraries(${GLFW_LIBRARIES})
 
 set(SOURCES
-        src/data/maps/test.sub
         src/app.cpp
         ${IMGUI_DIR}/backends/imconfig.h
         src/database.cpp
@@ -58,3 +57,4 @@ endif()
 add_executable(subsis ${SOURCES})
 target_include_directories(subsis PRIVATE ${IMGUI_DIR} glfw)
 target_link_libraries(subsis ${LIBS} -lGL -lGLU -lGLEW -lglfw)
+

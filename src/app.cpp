@@ -1,4 +1,4 @@
-#include "./database.h"
+#include "database.h"
 #include <fstream>
 #include <iostream>
 #include <math.h>
@@ -20,6 +20,7 @@
 #include "../backends/stb_image.h"
 using namespace std;
 #include <cstdlib>
+
 
 // Declares how many Trains should be created
 int trains_to_create = 4;
@@ -47,6 +48,7 @@ bool signal;
 int watch;
 int min;
 int type_cycle;
+
 // json file strings
 string answer, file;
 
@@ -55,9 +57,6 @@ int cycle, lost_money, error_count;
 
 string menu_time;
 // int field_type_1, field_type_2, field_type_3, field_type_4, field_type_5, field_type_6, field_type_7, field_type_8, field_type_9, field_type_10, field_type_11, field_type_12, field_type_13, field_type_14, field_type_15, ield_type_16, field_type_17, field_type_18, field_type_19, field_type_20;
-
-
-
 
 //integers for (possible) losses
 int possible_loss, delay_passenger;
@@ -69,30 +68,14 @@ string global_string_hour = "00";
 string global_string_minute = "00";
 string global_clock = "00:00";
 
-const int ROWS = 10;
-const int COLUMNS = 10;
 
-int grid[ROWS][COLUMNS] = {
-	{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	{11, 12, 13, 14, 15, 16, 17, 18, 19, 20},
-	{21, 22, 23, 24, 25, 26, 27, 28, 29, 30},
-	{31, 32, 33, 34, 35, 36, 37, 38, 39, 40},
-	{41, 42, 43, 44, 45, 46, 47, 48, 49, 50},
-	{51, 52, 53, 54, 55, 56, 57, 58, 59, 60},
-	{61, 62, 63, 64, 65, 66, 67, 68, 69, 70},
-	{71, 72, 73, 74, 75, 76, 77, 78, 79, 80},
-	{81, 82, 83, 84, 85, 86, 87, 88, 89, 90},
-	{91, 92, 93, 94, 95, 96, 97, 98, 99, 100}
-};
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-//																					//
-//																					//
-//						Image loading												//
-//																					//
-//																					//
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////
+//						//
+//						//
+//		Image loading			//
+//						//
+//						//
+//////////////////////////////////////////////////
 
 bool LoadTextureFromFile(const char* filename, GLuint* out_texture, int* out_width, int* out_height)
 	{
@@ -391,6 +374,19 @@ void train_initiation(int i)
 //main function
 int main(int, char**) {
 
+	loadmap();
+
+ 	cout << "namelength: " << namelength << endl;
+	cout << "name: " << name << endl;
+	cout << "Map size: " << width << " : " << height << endl;
+	for(int i = 0; i < width; i++) {
+		for(int j = 0; j < height; j++) {
+			cout << map[i][j] << " ";
+		}	
+		cout << endl;
+	}
+
+
 	int i = 0;
 	while (i < trains_to_create)
 	{
@@ -519,7 +515,6 @@ int main(int, char**) {
 								
 			if (ImGui::Button("Toggle Map"))
 			{
-				loadmap();
 				if (map_window_active == true)
 				{
 					map_window_active = false;
@@ -622,7 +617,8 @@ int main(int, char**) {
 //            (__)\       )\/\
 //                ||----w |
 //                ||     ||
-//		  
+//
+
 	if (map_window_active == true)
 	{
 	    ImGui::Begin("Grid Window", NULL);

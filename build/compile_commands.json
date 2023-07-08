@@ -1,55 +1,55 @@
 [
 {
   "directory": "/home/eisbaer1832/projects/subsis/build",
-  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/src/app.cpp.o -c /home/eisbaer1832/projects/subsis/src/app.cpp",
+  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/./src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/src/app.cpp.o -c /home/eisbaer1832/projects/subsis/src/app.cpp",
   "file": "/home/eisbaer1832/projects/subsis/src/app.cpp",
   "output": "CMakeFiles/subsis.dir/src/app.cpp.o"
 },
 {
   "directory": "/home/eisbaer1832/projects/subsis/build",
-  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/src/database.cpp.o -c /home/eisbaer1832/projects/subsis/src/database.cpp",
+  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/./src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/src/database.cpp.o -c /home/eisbaer1832/projects/subsis/src/database.cpp",
   "file": "/home/eisbaer1832/projects/subsis/src/database.cpp",
   "output": "CMakeFiles/subsis.dir/src/database.cpp.o"
 },
 {
   "directory": "/home/eisbaer1832/projects/subsis/build",
-  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui.cpp",
+  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/./src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui.cpp",
   "file": "/home/eisbaer1832/projects/subsis/backends/imgui.cpp",
   "output": "CMakeFiles/subsis.dir/backends/imgui.cpp.o"
 },
 {
   "directory": "/home/eisbaer1832/projects/subsis/build",
-  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_demo.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_demo.cpp",
+  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/./src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_demo.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_demo.cpp",
   "file": "/home/eisbaer1832/projects/subsis/backends/imgui_demo.cpp",
   "output": "CMakeFiles/subsis.dir/backends/imgui_demo.cpp.o"
 },
 {
   "directory": "/home/eisbaer1832/projects/subsis/build",
-  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_draw.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_draw.cpp",
+  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/./src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_draw.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_draw.cpp",
   "file": "/home/eisbaer1832/projects/subsis/backends/imgui_draw.cpp",
   "output": "CMakeFiles/subsis.dir/backends/imgui_draw.cpp.o"
 },
 {
   "directory": "/home/eisbaer1832/projects/subsis/build",
-  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_tables.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_tables.cpp",
+  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/./src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_tables.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_tables.cpp",
   "file": "/home/eisbaer1832/projects/subsis/backends/imgui_tables.cpp",
   "output": "CMakeFiles/subsis.dir/backends/imgui_tables.cpp.o"
 },
 {
   "directory": "/home/eisbaer1832/projects/subsis/build",
-  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_widgets.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_widgets.cpp",
+  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/./src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_widgets.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_widgets.cpp",
   "file": "/home/eisbaer1832/projects/subsis/backends/imgui_widgets.cpp",
   "output": "CMakeFiles/subsis.dir/backends/imgui_widgets.cpp.o"
 },
 {
   "directory": "/home/eisbaer1832/projects/subsis/build",
-  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_impl_glfw.cpp",
+  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/./src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_impl_glfw.cpp",
   "file": "/home/eisbaer1832/projects/subsis/backends/imgui_impl_glfw.cpp",
   "output": "CMakeFiles/subsis.dir/backends/imgui_impl_glfw.cpp.o"
 },
 {
   "directory": "/home/eisbaer1832/projects/subsis/build",
-  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_impl_opengl3.cpp",
+  "command": "/usr/bin/g++ -I/home/eisbaer1832/projects/subsis/./src/data -I/home/eisbaer1832/projects/subsis/. -I/home/eisbaer1832/projects/subsis/glfw   -g -Wall -Wformat -g -std=gnu++11 -o CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o -c /home/eisbaer1832/projects/subsis/backends/imgui_impl_opengl3.cpp",
   "file": "/home/eisbaer1832/projects/subsis/backends/imgui_impl_opengl3.cpp",
   "output": "CMakeFiles/subsis.dir/backends/imgui_impl_opengl3.cpp.o"
 }
